@@ -1,0 +1,84 @@
+﻿@model AdiPlus.ViewModels.Admin.ServiceViewModel
+
+<form class="form-group" method="post" asp-controller="Admin" asp-action="AddService">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label>Название услуги</label>
+        <input class="form-control shadow-sm bg-white rounded" asp-for="ServiceName" placeholder="Введите название услуги">
+        <span asp-validation-for="ServiceName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Цена</label>
+        <input class="form-control shadow-sm bg-white rounded" asp-for="Price" placeholder="Введите цену">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Описание</label>
+        <input class="form-control shadow-sm bg-white rounded" asp-for="Description" placeholder="Введите описание услуги">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Материалы</label>
+        <select id="select"></select>
+    </div>
+    <div id="customInput"></div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block shadow-sm rounded">Добавить</button>
+    </div>
+</form>
+
+
+<script>
+        $(document).ready(function() {
+            var listCount = 0;
+
+            function onSelect(e) {
+                    var dataItem = e.dataItem;
+                    console.log(dataItem)
+                    $("#customInput").append(`<div class="form-group"><label>Количество материала "${dataItem.materialName}"</label> <input id=${dataItem.id} class="form-control shadow-sm bg-white rounded" name="Material[${listCount}].Quantity" placeholder="Введите количество материала"> <input type="hidden" name="Material[${listCount}].MaterialId" value=${dataItem.id}></div>`)
+                    console.log("event :: select (" + dataItem.text + " : " + dataItem.value + ")" );
+                    listCount++;
+            };
+
+            function onDeselect(e) {
+               
+                    var dataItem = e.dataItem;
+                    $(`#${dataItem.value}`).remove();
+                    listCount--;
+                    console.log("event :: deselect (" + dataItem.text + " : " + dataItem.value + ")" );
+            };
+
+
+            var data = [
+                { text: "Бинт", value:"1" },
+                { text: "Шприц", value:"2" },
+                { text: "Asia", value:"3" },
+                { text: "North America", value:"4" },
+                { text: "South America", value:"5" },
+                { text: "Antarctica", value:"6" },
+                { text: "Australia", value:"7" }
+            ];
+
+            $("#select").kendoMultiSelect({
+            placeholder: "Выберите материал...",
+                dataTextField: "materialName",
+                dataValueField: "id",
+                dataSource: {
+                                    transport: {
+                                        read: {
+                                            url: "@Url.Action("GetAllMaterials","Admin")",
+                                        }
+                                    }
+                },
+                deselect: function(e) {
+                              e.preventDefault();
+                            },
+                select: onSelect
+            });
+        });
+    </script>
+<style>
+.k-icon.k-i-close {
+    display : none;
+}
+</style>

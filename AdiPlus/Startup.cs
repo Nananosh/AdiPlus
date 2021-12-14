@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdiPlus.Business.Interfaces;
+using AdiPlus.Business.Services;
 using AdiPlus.Migrations;
 using AdiPlus.Models;
 using AdiPlus.ViewModels.Mappings;
@@ -28,6 +30,8 @@ namespace AdiPlus
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IAdminService, AdminService>();
+            
             services.AddAutoMapper(typeof(UserMappingProfile));
             services.AddControllersWithViews();
             

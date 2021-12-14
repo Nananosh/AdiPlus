@@ -1,0 +1,33 @@
+﻿@model AdiPlus.ViewModels.Admin.MaterialViewModel
+
+<form class="form-group" method="post" asp-controller="Admin" asp-action="AddMaterial">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label>Название материала</label>
+        <input class="form-control shadow-sm bg-white rounded" asp-for="MaterialName" placeholder="Введите название материала">
+        <span asp-validation-for="MaterialName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Цена</label>
+        <input class="form-control shadow-sm bg-white rounded" asp-for="Price" placeholder="Введите цену">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Количество</label>
+        <input class="form-control shadow-sm bg-white rounded" asp-for="Quantity" placeholder="Введите количество">
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Дата доставки</label>
+        <input type="date" class="form-control shadow-sm bg-white rounded" asp-for="DeliveryDate" placeholder="Введите дату доставки">
+        <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Срок годности</label>
+        <input type="date" class="form-control shadow-sm bg-white rounded" asp-for="ExpirationDate" placeholder="Введите срок годности">
+        <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block shadow-sm rounded">Добавить</button>
+    </div>
+</form>

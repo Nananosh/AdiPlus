@@ -2,6 +2,7 @@
 using AdiPlus.Migrations;
 using AdiPlus.Models;
 using AdiPlus.ViewModels;
+using AdiPlus.ViewModels.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
