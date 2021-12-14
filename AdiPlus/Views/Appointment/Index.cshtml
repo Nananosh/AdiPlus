@@ -1,0 +1,98 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<p></p>
+<input id="doctor" style="width: 40%;" />
+<p></p>
+<input id="datepicker" value="11/12/2021" title="datepicker" style="width: 40%" />
+<p></p>
+<input id="talons" style="width: 40%;" />
+<p></p>
+<select id="services" multiple="multiple" style="width: 85%;"></select>
+
+<button id="textButton">Заказать</button>
+
+<script>
+    $("#services").kendoMultiSelect({
+        dataTextField: "getService",
+        dataValueField: "id",
+        dataSource: {
+            transport: {
+                read: {
+                    url: "@Url.Action("GetServices", "Appointment")",
+                    dataType: "json",
+                    cache: false
+                }
+            }
+        }
+    });
+
+    $("#doctor").kendoDropDownList({
+        dataTextField: "fullName",
+        dataValueField: "id",
+        optionLabel: "Выберите врача...",
+        height: 500,
+        dataSource: {
+            transport: {
+                read: {
+                    url: "@Url.Action("GetAllDoctors", "Appointment")",
+                    dataType: "json",
+                    cache: false
+                }
+            }
+        }
+    });
+
+    $("#datepicker").kendoDatePicker({
+        change: onChange
+    })
+
+    function onChange() {
+        $("#talons").kendoDropDownList({
+            dataTextField: "getDate",
+            dataValueField: "id",
+            optionLabel: "Выберите талон",
+            height: 500,
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "@Url.Action("GetTalonsByDoctorDate", "Appointment")",
+                        data: function () {
+                            var datapicker = $("#datepicker").data("kendoDatePicker").value();
+                            var t = kendo.toString(datapicker, "dd/MM/yyyy");
+                            return {
+                                doctor: $("#doctor").data("kendoDropDownList").value(),
+                                talon1: kendo.toString(datapicker, "dd/MM/yyyy")
+                            };
+                        }
+                    }
+
+                }
+            }
+        });
+    }
+
+    $("#textButton").kendoButton({
+        click: onClick
+    });
+
+    @*function onClick() {
+        const talonId = $("#talons").data("kendoDropDownList").value()
+        const address = $("#address").data("kendoTextBox").value()
+        var userId = "@User.Claims.ElementAt(0).Value";
+        $.ajax({
+            url: `/Appointment/AddPatientTalon/?talon=${talonId}&address=${address}&userid=${userId}`,
+            type: 'post',
+            success: function (response) {
+                console.log(response)
+                alert(response);
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }*@
+</script>

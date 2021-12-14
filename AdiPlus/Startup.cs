@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdiPlus.Business.Interfaces;
+using AdiPlus.Business.Services;
 using AdiPlus.Migrations;
 using AdiPlus.Models;
 using AdiPlus.ViewModels.Mappings;
@@ -30,7 +32,11 @@ namespace AdiPlus
         {
             services.AddAutoMapper(typeof(UserMappingProfile));
             services.AddControllersWithViews();
-            
+
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddDbContext<ApplicationContext>(
                 options =>
                     options.UseSqlServer(
