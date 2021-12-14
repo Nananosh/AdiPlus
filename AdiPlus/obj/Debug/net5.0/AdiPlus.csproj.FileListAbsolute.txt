@@ -81,3 +81,7 @@ C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\AdiPlus.pdb
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\AdiPlus.genruntimeconfig.cache
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddMaterial.cshtml.g.cs
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddService.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\Index.cshtml.g.cs

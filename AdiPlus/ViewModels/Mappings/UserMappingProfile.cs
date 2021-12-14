@@ -1,5 +1,4 @@
 ﻿using AdiPlus.Models;
-using AdiPlus.Models;
 using AdiPlus.ViewModels.Admin;
 using AutoMapper;
 
@@ -32,7 +31,7 @@ namespace AdiPlus.ViewModels.Mappings
                     opt => opt.Ignore())
                 .ForMember(dest => dest.WorkSchedules,
                     opt => opt.Ignore()).ReverseMap();
-            
+
             CreateMap<AppointmentViewModel, Appointment>()
                 .ForMember(x => x.Client,
                     opt => opt.MapFrom(src => src.Client))
@@ -49,7 +48,7 @@ namespace AdiPlus.ViewModels.Mappings
                 .ForMember(x => x.Service, opt => opt.Ignore())
                 .ForMember(x => x.ClientId,
                     opt => opt.Ignore()).ReverseMap();
-            
+
             CreateMap<ServiceViewModel, Service>()
                 .ForMember(x => x.Id,
                     opt => opt.MapFrom(src => src.Id))
@@ -59,9 +58,9 @@ namespace AdiPlus.ViewModels.Mappings
                     opt => opt.MapFrom(src => src.Description))
                 .ForMember(x => x.Price,
                     opt => opt.MapFrom(src => src.Price))
-                .ForMember(x => x.Appointments, opt => opt.Ignore())
-                .ForMember(x => x.Material, opt => opt.Ignore()).ReverseMap();
-            
+                .ForMember(x => x.Material, opt => opt.MapFrom(src => src.Material))
+                .ForMember(x => x.Appointments, opt => opt.Ignore()).ReverseMap();
+
             CreateMap<MaterialViewModel, Material>()
                 .ForMember(dest => dest.Id,
                     opt => opt.MapFrom
@@ -84,25 +83,6 @@ namespace AdiPlus.ViewModels.Mappings
                 .ForMember(dest => dest.Appointment,
                     opt => opt.Ignore())
                 .ForMember(dest => dest.Service,
-                    opt => opt.Ignore()).ReverseMap();
-            
-            CreateMap<ServiceViewModel, Service>()
-                .ForMember(dest => dest.Id,
-                    opt => opt.MapFrom
-                        (src => src.Id))
-                .ForMember(dest => dest.ServiceName,
-                    opt => opt.MapFrom
-                        (src => src.ServiceName))
-                .ForMember(dest => dest.Description,
-                    opt => opt.MapFrom
-                        (src => src.Description))
-                .ForMember(dest => dest.Price,
-                    opt => opt.MapFrom
-                        (src => src.Price))
-                .ForMember(dest => dest.Material,
-                    opt => opt.MapFrom
-                        (src => src.Material))
-                .ForMember(dest => dest.Appointments,
                     opt => opt.Ignore()).ReverseMap();
         }
     }

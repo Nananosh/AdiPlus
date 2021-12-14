@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using AdiPlus.ViewModels.Admin;
 
 namespace AdiPlus.Controllers
 {
