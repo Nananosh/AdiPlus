@@ -79,3 +79,5 @@ C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\AdiPlus.dll
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\ref\AdiPlus.dll
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\AdiPlus.pdb
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\AdiPlus.genruntimeconfig.cache
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddMaterial.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddService.cshtml.g.cs
