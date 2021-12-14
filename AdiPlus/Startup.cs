@@ -34,7 +34,11 @@ namespace AdiPlus
             
             services.AddAutoMapper(typeof(UserMappingProfile));
             services.AddControllersWithViews();
-            
+
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddDbContext<ApplicationContext>(
                 options =>
                     options.UseSqlServer(

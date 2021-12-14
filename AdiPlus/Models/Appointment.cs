@@ -8,6 +8,7 @@ namespace AdiPlus.Models
         public int Id { get; set; }
         public Doctor Doctor { get; set; }
         public Client Client { get; set; }
+        public int? ClientId { get; set; }
         public List<Service> Service { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
