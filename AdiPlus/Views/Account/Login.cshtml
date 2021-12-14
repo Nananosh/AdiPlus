@@ -1,8 +1,7 @@
-﻿@model AdiPlus.ViewModels.LoginViewModel
+﻿@model AdiPlus.ViewModels.Account.LoginViewModel
 
 @{
-    Layout = null;
-    ViewData["Title"] = "Sign In to Plushkin";
+    ViewData["Title"] = "Sign In to AdiPlus";
 }
 <head>
     <meta charset="utf-8"/>
@@ -20,9 +19,9 @@
     <div class="row justify-content-lg-center">
         <div class="col-lg-8 text-lg-center pb-4">
             <a asp-action="Index" asp-controller="Home" style="text-decoration: none; color: black">
-                <h1 style="font-family: 'Abril Fatface', cursive;">MoreHealth</h1>
+                <h1 style="font-family: 'Abril Fatface', cursive;">AdiPlus</h1>
             </a>
-            <h2 class="h4">Sign in to your account</h2>
+            <h2 class="h4">Вход</h2>
         </div>
     </div>
     <br>
@@ -33,23 +32,23 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="UserName"></label>
-                    <input class="form-control shadow-sm bg-white rounded" asp-for="UserName" placeholder="Enter username">
+                    <input class="form-control shadow-sm bg-white rounded" asp-for="UserName" placeholder="Введите имя пользователя">
                     <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Password"></label>
-                    <input class="form-control shadow-sm bg-white rounded" asp-for="Password" placeholder="Enter password">
+                    <input class="form-control shadow-sm bg-white rounded" asp-for="Password" placeholder="Введите пароль">
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-block shadow-sm rounded">Sign In</button>
+                    <button type="submit" class="btn btn-success btn-block shadow-sm rounded">Войти</button>
                 </div>
             </form>
         </div>
     </div>
     <div class="row justify-content-lg-center pt-4">
         <div class="col-lg-8 text-lg-center">
-            <h6 class="h6">New to Plushkin? <a asp-controller="Account" asp-action="Register">Create an account.</a></h6>
+            <h6 class="h6">Впервые на AdiPlus? <a asp-controller="Account" asp-action="Register">Создайте аккаунт.</a></h6>
         </div>
     </div>
 </div>

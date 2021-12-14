@@ -1,8 +1,7 @@
-﻿@model AdiPlus.ViewModels.RegisterViewModel
+﻿@model AdiPlus.ViewModels.Account.RegisterViewModel
 
 @{
-    Layout = null;
-    ViewData["Title"] = "Register in Plushkin";
+    ViewData["Title"] = "Register in AdiPlus";
 }
 <head>
     <meta charset="utf-8"/>
@@ -20,9 +19,9 @@
     <div class="row justify-content-lg-center">
         <div class="col-lg-8 text-lg-center pb-4">
             <a asp-action="Index" asp-controller="Home" style="text-decoration: none; color: black">
-                <h1 style="font-family: 'Abril Fatface', cursive;">MoreHealth</h1>
+                <h1 style="font-family: 'Abril Fatface', cursive;">AdiPlus</h1>
             </a>
-            <h2 class="h4">Register your account</h2>
+            <h2 class="h4">Регистрация</h2>
         </div>
     </div>
     <br>
@@ -34,57 +33,47 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Email"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Email" placeholder="Enter email">
+                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Email" placeholder="Введите почту">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="UserName"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="UserName" placeholder="Enter username">
+                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="UserName" placeholder="Введите имя пользователя">
                     <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Name"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Name" placeholder="Enter password">
+                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Name" placeholder="Введите имя">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Surname"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Surname" placeholder="Enter password">
+                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Surname" placeholder="Введите фамилию">
                     <span asp-validation-for="Surname" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Lastname"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Lastname" placeholder="Enter password">
+                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Lastname" placeholder="Введите отчество">
                     <span asp-validation-for="Lastname" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" class="form-check-input" asp-for="IsPatient">
-                    <label asp-for="IsPatient"></label>
-                    <span asp-validation-for="IsPatient" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="DateBirth"></label>
-                    <input type="date" class="form-control form-control shadow-sm bg-white rounded" asp-for="DateBirth" placeholder="Enter password">
+                    <input type="date" class="form-control form-control shadow-sm bg-white rounded" asp-for="DateBirth" placeholder="Введите дату рождения">
                     <span asp-validation-for="DateBirth" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Address"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Address" placeholder="Enter password">
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="Password"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Password" placeholder="Enter password">
+                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="Password" placeholder="Введите пароль">
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PasswordConfirm"></label>
-                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="PasswordConfirm" placeholder="Repeat password">
+                    <input class="form-control form-control shadow-sm bg-white rounded" asp-for="PasswordConfirm" placeholder="Повторите пароль">
                     <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
                 </div>
                 <div>
                     <div class="form-group  pt-1">
-                        <button type="submit" class="btn btn-success btn-block shadow-sm rounded">Register</button>
+                        <button type="submit" class="btn btn-success btn-block shadow-sm rounded">Зарегистрироваться</button>
                     </div>
                 </div>
             </form>
@@ -92,7 +81,7 @@
     </div>
     <div class="row justify-content-lg-center pt-4">
         <div class="col-lg-8 text-lg-center">
-            <h6 class="h6">Already registered in Plushkin? <a asp-controller="Account" asp-action="Login">Sign in your account.</a></h6>
+            <h6 class="h6">Уже зарегистрированы в AdiPlus? <a asp-controller="Account" asp-action="Login">Войдите в свой аккаунт.</a></h6>
         </div>
     </div>
 </div>

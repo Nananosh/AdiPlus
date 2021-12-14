@@ -1,52 +1,46 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AdiPlus.ViewModels
+namespace AdiPlus.ViewModels.Account
 {
     public class RegisterViewModel
     {
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
+        [Display(Name = "Почта")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password", ErrorMessage = "Passwords don't match")]
+        [Compare("Password", ErrorMessage = "Пароль не совпадает")]
         [DataType(DataType.Password)]
-        [Display(Name = "Repeat the password")]
+        [Display(Name = "Повторите пароль")]
         public string PasswordConfirm { get; set; }
         
         [Required]
-        [Display(Name = "Name")]
+        [Display(Name = "Имя")]
         public string Name { get; set; }
         
         [Required]
-        [Display(Name = "Surname")]
+        [Display(Name = "Фамилия")]
         public string Surname { get; set; }
         
         [Required]
-        [Display(Name = "LastName")]
+        [Display(Name = "Отчество")]
         public string Lastname { get; set; }
         
-        [Required]
-        [Display(Name = "IsPatient")]
-        public bool IsPatient { get; set; }
         
         [Required]
-        [Display(Name = "DateBirth")]
+        [Display(Name = "Дата рождения")]
         public DateTime DateBirth { get; set; }
         
-        [Required]
-        [Display(Name = "Address")]
-        public string Address { get; set; }
     }
 }
