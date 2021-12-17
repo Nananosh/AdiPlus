@@ -18,6 +18,10 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label>Предназначение лекарства</label>
+        <input id="doctor" style="width: 40%;" asp-for="DoctorId"/>
+    </div>
+    <div class="form-group">
         <label>Материалы</label>
         <select id="select"></select>
     </div>
@@ -47,17 +51,22 @@
                     listCount--;
                     console.log("event :: deselect (" + dataItem.text + " : " + dataItem.value + ")" );
             };
-
-
-            var data = [
-                { text: "Бинт", value:"1" },
-                { text: "Шприц", value:"2" },
-                { text: "Asia", value:"3" },
-                { text: "North America", value:"4" },
-                { text: "South America", value:"5" },
-                { text: "Antarctica", value:"6" },
-                { text: "Australia", value:"7" }
-            ];
+            
+            $("#doctor").kendoDropDownList({
+                    dataTextField: "fullName",
+                    dataValueField: "id",
+                    optionLabel: "Выберите врача...",
+                    height: 500,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: "@Url.Action("GetAllDoctors", "Appointment")",
+                                dataType: "json",
+                                cache: false
+                            }
+                        }
+                    }
+                });
 
             $("#select").kendoMultiSelect({
             placeholder: "Выберите материал...",
@@ -66,7 +75,7 @@
                 dataSource: {
                                     transport: {
                                         read: {
-                                            url: "@Url.Action("GetAllMaterials","Admin")",
+                                            url: "@Url.Action("GetAllMaterials", "Admin")",
                                         }
                                     }
                 },

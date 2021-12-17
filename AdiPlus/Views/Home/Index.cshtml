@@ -1,8 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<a type="button" class="btn btn-danger" asp-action="CreateRole" asp-controller="Roles">ДОБАВИТЬ РОЛИ</a>
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <a type="button" class="btn btn-info" asp-action="Login" asp-controller="Account">Авторизация</a>
+        <a type="button" class="btn btn-info" asp-action="Register" asp-controller="Account">Регистрация</a>
+        <a type="button" class="btn btn-info" asp-action="AddCabinet" asp-controller="Admin">Добавить кабинет</a>
+        <a type="button" class="btn btn-info" asp-action="AddSpecialization" asp-controller="Admin">Добавить специальность</a>
+        <a type="button" class="btn btn-info" asp-action="AddDoctor" asp-controller="Admin">Добавить доктора</a>
+        <a type="button" class="btn btn-info" asp-action="AddMaterial" asp-controller="Admin">Добавить материал</a>
+    <a type="button" class="btn btn-info" asp-action="AddService" asp-controller="Admin">Добавить услугу</a>
+    <a type="button" class="btn btn-info" asp-action="Index" asp-controller="Appointment">Добавить талон</a>
 </div>

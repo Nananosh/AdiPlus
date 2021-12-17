@@ -85,3 +85,6 @@ C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\bin\Debug\net5.0\Microsoft.AspNetCo
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\Index.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddSpecialization.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddCabinet.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddDoctor.cshtml.g.cs

@@ -1,0 +1,13 @@
+﻿@model AdiPlus.ViewModels.Admin.CabinetViewModel
+
+<form class="form-group" method="post" asp-controller="Admin" asp-action="AddCabinet">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label>Номер кабинета</label>
+        <input class="form-control shadow-sm bg-white rounded" asp-for="CabinetNumber" placeholder="Введите номер кабинета">
+        <span asp-validation-for="CabinetNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block shadow-sm rounded">Добавить</button>
+    </div>
+</form>
