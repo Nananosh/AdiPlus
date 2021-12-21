@@ -31,6 +31,7 @@ namespace AdiPlus
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IDoctorOrClientService, DoctorOrClientService>();
             
             services.AddAutoMapper(typeof(UserMappingProfile));
             services.AddControllersWithViews();

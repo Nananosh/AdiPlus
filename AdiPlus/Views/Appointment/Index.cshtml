@@ -3,28 +3,32 @@
 *@
 @{
 }
-
+<p></p>
+<input id="specializations" style="width: 40%;" />
 <p></p>
 <input id="doctor" style="width: 40%;" />
 <p></p>
-<input id="datepicker" value="11/12/2021" title="datepicker" style="width: 40%" />
+<select id="services" multiple="multiple" style="width: 40%;"></select>
+<p></p>
+<input id="datepicker" title="datepicker" style="width: 40%" />
 <p></p>
 <input id="talons" style="width: 40%;" />
 <p></p>
-<select id="services" multiple="multiple" style="width: 85%;"></select>
-
 <button id="textButton">Заказать</button>
 
 <script>
-    $("#services").kendoMultiSelect({
-        dataTextField: "getService",
+    $("#specializations").kendoDropDownList({
+        dataTextField: "specializationName",
         dataValueField: "id",
+        optionLabel: "Выберите направление...",
+        height: 500,
+        change: onSpecializationChange,
         dataSource: {
             transport: {
                 read: {
-                    url: "@Url.Action("GetServices", "Appointment")",
+                    url: "@Url.Action("GetAllSpecializations", "Admin")",
                     dataType: "json",
-                    cache: false
+                    cache: false,
                 }
             }
         }
@@ -34,29 +38,64 @@
         dataTextField: "fullName",
         dataValueField: "id",
         optionLabel: "Выберите врача...",
+        cascadeFrom: "specializations",
+        autoBind: false,
         height: 500,
         dataSource: {
+            serverFiltering: true,
             transport: {
                 read: {
-                    url: "@Url.Action("GetAllDoctors", "Appointment")",
-                    dataType: "json",
-                    cache: false
+                    url: "@Url.Action("GetDoctorsBySpecializationId", "Appointment")",
+                    data: function () {
+                        return {
+                            id: $("#specializations").data("kendoDropDownList").value(),
+                        };
+                    }
                 }
             }
         }
     });
 
+    $("#services").kendoMultiSelect({
+        dataTextField: "getService",
+        dataValueField: "id",
+        cascadeFrom: "specializations",
+        autoBind: false,
+        dataSource: {
+            serverFiltering: true,
+            transport: {
+                read: {
+                    url: "@Url.Action("GetServicesBySpecializationId", "Appointment")",
+                    data: function () {
+                        return {
+                            id: $("#specializations").data("kendoDropDownList").value(),
+                        };
+                    }
+                }
+            }
+        }
+    });
+
+    function onSpecializationChange() {
+        $("#services").data("kendoMultiSelect").dataSource.read();
+        $("#services").data("kendoMultiSelect").value("");
+    }
+
     $("#datepicker").kendoDatePicker({
-        change: onChange
+        change: function (e) {
+            $("#talons").data("kendoDropDownList").dataSource.read();
+        }
     })
 
-    function onChange() {
         $("#talons").kendoDropDownList({
             dataTextField: "getDate",
             dataValueField: "id",
             optionLabel: "Выберите талон",
+            cascadeFrom: "datepicker",
+            autoBind: false,
             height: 500,
             dataSource: {
+                serverFiltering: true,
                 transport: {
                     read: {
                         url: "@Url.Action("GetTalonsByDoctorDate", "Appointment")",
@@ -73,26 +112,22 @@
                 }
             }
         });
-    }
 
     $("#textButton").kendoButton({
-        click: onClick
+        click: function (e) {
+            var doctorId = $("#doctor").data("kendoDropDownList").value();
+            var talons = $("#talons").data("kendoDropDownList").value();
+            var services = $("#services").data("kendoMultiSelect").value();
+            var userId = "@User.Claims.ElementAt(0).Value";
+            var buildUrl = "@Url.Action("AddAppointment", "Appointment")" + `/?userId=${userId}&doctorId=${doctorId}&ticketId=${talons}`;
+            $.ajax({
+                type: "POST",
+                url: buildUrl,
+                data: { serviceIds: services},
+                success: function (response) {
+                    alert(response);
+                },
+            });
+        }
     });
-
-    @*function onClick() {
-        const talonId = $("#talons").data("kendoDropDownList").value()
-        const address = $("#address").data("kendoTextBox").value()
-        var userId = "@User.Claims.ElementAt(0).Value";
-        $.ajax({
-            url: `/Appointment/AddPatientTalon/?talon=${talonId}&address=${address}&userid=${userId}`,
-            type: 'post',
-            success: function (response) {
-                console.log(response)
-                alert(response);
-            },
-            error: function (response) {
-                alert(response);
-            }
-        });
-    }*@
 </script>

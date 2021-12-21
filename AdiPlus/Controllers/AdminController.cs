@@ -25,7 +25,14 @@ namespace AdiPlus.Controllers
         {
             return View();
         }
-        
+
+        public JsonResult GetAllSpecializations()
+        {
+            var specializations = adminService.GetAllSpecializations();
+
+            return Json(specializations);
+        }
+
         [HttpPost]
         public IActionResult AddMaterial(MaterialViewModel model)
         {

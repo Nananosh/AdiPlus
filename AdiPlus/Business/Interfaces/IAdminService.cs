@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AdiPlus.Migrations;
 using AdiPlus.Models;
@@ -9,13 +10,14 @@ namespace AdiPlus.Business.Interfaces
 {
     public interface IAdminService
     {
-        public void AddMaterial(Material material);
-        public void AddService(Service service);
-        public void AddSpecialization(Specialization specialization);
-        public Task<IActionResult> AddDoctor(RegisterDoctorViewModel model);
-        public void AddCabinet(Cabinet cabinet);
-        public IEnumerable GetAllMaterials();
-        public IEnumerable GetAllSpecialization();
-        public IEnumerable GetAllCabinet();
+        void AddMaterial(Material material);
+        void AddService(Service service);
+        void AddSpecialization(Specialization specialization);
+        Task<IActionResult> AddDoctor(RegisterDoctorViewModel model);
+        void AddCabinet(Cabinet cabinet);
+        IEnumerable GetAllMaterials();
+        IEnumerable<Specialization> GetAllSpecializations();
+        IEnumerable GetAllSpecialization();
+        IEnumerable GetAllCabinet();
     }
 }

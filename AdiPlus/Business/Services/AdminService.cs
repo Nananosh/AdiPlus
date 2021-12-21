@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AdiPlus.Business.Interfaces;
 using AdiPlus.Migrations;
@@ -25,7 +26,14 @@ namespace AdiPlus.Business.Services
             db.Materials.Add(material);
             db.SaveChanges();
         }
-        
+
+        public IEnumerable<Specialization> GetAllSpecializations()
+        {
+            var specializations = db.Specializations;
+
+            return specializations;
+        }
+
         public void AddService(Service service)
         {
             db.Services.Add(service);

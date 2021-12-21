@@ -1,11 +1,11 @@
 ﻿using AdiPlus.Business.Interfaces;
-using AdiPlus.Migrations;
 using AdiPlus.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using AdiPlus.ViewModels.Admin;
+using Newtonsoft.Json;
 
 namespace AdiPlus.Controllers
 {
@@ -13,12 +13,15 @@ namespace AdiPlus.Controllers
     {
         private readonly IMapper mapper;
         private readonly IAppointmentService appointmentService;
+        private readonly IDoctorOrClientService doctorOrClientService;
 
         public AppointmentController(
             IMapper mapper,
-            IAppointmentService appointmentService)
+            IAppointmentService appointmentService,
+            IDoctorOrClientService doctorOrClientService)
         {
             this.mapper = mapper;
+            this.doctorOrClientService = doctorOrClientService;
             this.appointmentService = appointmentService;
         }
 
@@ -33,11 +36,35 @@ namespace AdiPlus.Controllers
 
             return Json(mapper.Map<IEnumerable<DoctorViewModel>>(doctors));
         }
-        public JsonResult GetServices()
+        public JsonResult GetAllServices()
         {
-            var services = appointmentService.GetServices();
+            var services = appointmentService.GetAllServices();
 
             return Json(mapper.Map<IEnumerable<ServiceViewModel>>(services));
+        }
+
+        public JsonResult GetDoctorsBySpecializationId(int id)
+        {
+            var doctors = appointmentService.GetDoctorsBySpecializationId(id);
+
+            return Json(mapper.Map<IEnumerable<DoctorViewModel>>(doctors));
+
+
+        }
+        public JsonResult GetServicesBySpecializationId(int id)
+        {
+            var services = appointmentService.GetServicesBySpecializationId(id);
+
+            return Json(mapper.Map<IEnumerable<ServiceViewModel>>(services));
+        }
+
+        public IActionResult AddAppointment(string userId, int ticketId, int[] serviceIds)
+        {
+            var clientId = doctorOrClientService.GetClientByUserId(userId);
+
+            var messageToUser = appointmentService.AddAppointment(clientId, ticketId, serviceIds);
+            
+            return Content(messageToUser);
         }
 
         public JsonResult GetTalonsByDoctorDate(int? doctor, string talon1)
