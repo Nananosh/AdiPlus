@@ -20,7 +20,6 @@ namespace AdiPlus.Migrations
         public DbSet<MedicalCard> MedicalCards { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<ServiceMeterialStandart> ServiceMeterialStandarts { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<WorkSchedule> WorkSchedules { get; set; }
     }

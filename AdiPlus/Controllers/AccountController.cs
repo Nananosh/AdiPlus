@@ -22,6 +22,46 @@ namespace AdiPlus.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        
+        [HttpGet]
+        public IActionResult RegisterDoctor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterDoctor(RegisterDoctorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User
+                {
+                    Email = model.Email, UserName = model.UserName,
+                    UserImage = "https://img.icons8.com/material-outlined/200/000000/user--v1.png"
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await _database.Doctors.AddAsync(new Doctor
+                    {
+                        User = user,
+                        Name = model.Name,
+                        Surname = model.Surname,
+                        LastName = model.Lastname,
+                    });
+                    await _database.SaveChangesAsync();
+                    await _userManager.AddToRoleAsync(user, "Doctor");
+                    await _signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult Register()

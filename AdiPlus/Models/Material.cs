@@ -11,7 +11,7 @@ namespace AdiPlus.Models
         public int Quantity { get; set; }
         public DateTime DeliveryDate { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public List<ServiceMeterialStandart> Service { get; set; }
+        public List<Service> Services { get; set; }
         public List<AppointmentMaterialUsed> Appointment { get; set; }
     }
 }

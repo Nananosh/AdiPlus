@@ -11,6 +11,6 @@ namespace AdiPlus.Models
         public string ServiceName { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
-        public List<ServiceMeterialStandart> Material { get; set; }
+        public List<Material> Materials { get; set; }
     }
 }

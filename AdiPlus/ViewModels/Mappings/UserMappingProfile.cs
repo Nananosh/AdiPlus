@@ -32,7 +32,7 @@ namespace AdiPlus.ViewModels.Mappings
                 .ForMember(x => x.ServiceName, opt => opt.MapFrom(src => src.ServiceName))
                 .ForMember(x => x.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(x => x.Price, opt => opt.MapFrom(src => src.Price))
-                .ForMember(x => x.Material, opt => opt.MapFrom(src => src.Material))
+                .ForMember(x => x.Materials, opt => opt.MapFrom(src => src.Materials))
                 .ForMember(dest => dest.SpecializationId, opt => opt.MapFrom(src => src.SpecializationId))
                 .ForMember(dest => dest.Specialization, opt => opt.Ignore())
                 .ForMember(x => x.Appointments, opt => opt.Ignore()).ReverseMap();
@@ -44,7 +44,7 @@ namespace AdiPlus.ViewModels.Mappings
                 .ForMember(dest => dest.DeliveryDate, opt => opt.MapFrom(src => src.DeliveryDate))
                 .ForMember(dest => dest.ExpirationDate,opt => opt.MapFrom(src => src.ExpirationDate))
                 .ForMember(dest => dest.Appointment, opt => opt.Ignore())
-                .ForMember(dest => dest.Service, opt => opt.Ignore()).ReverseMap();
+                .ForMember(dest => dest.Services, opt => opt.Ignore()).ReverseMap();
             CreateMap<SpecializationViewModel, Specialization>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.SpecializationName, opt => opt.MapFrom(src => src.SpecializationName))
