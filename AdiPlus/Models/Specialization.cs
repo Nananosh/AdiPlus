@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoreHealth.Models;
+using Newtonsoft.Json;
 
 namespace AdiPlus.Models
 {
@@ -7,6 +8,7 @@ namespace AdiPlus.Models
     {
         public int Id { get; set; }
         public string SpecializationName { get; set; }
+        [JsonIgnore]
         public List<Doctor> Doctors { get; set; }
     }
 }
