@@ -87,39 +87,40 @@
     });
 
     function specializationEditor(container, options) {
-        $('<input required name="SpecializationId" data-bind="value:' + options.field + '"/>')
-                .appendTo(container)
-                .kendoDropDownList({
-                    dataTextField: "specializationName",
-                    dataValueField: "id",
-                    height: 500,
-                    dataSource: {
-                        transport: {
-                            read: {
-                                url: "@Url.Action("GetAllSpecializations", "Admin")",
-                                dataType: "json",
-                                cache: false
+                $('<input required name="SpecializationId">')
+                    .appendTo(container)
+                    .kendoDropDownList({
+                        dataTextField: "specializationName",
+                        dataValueField: "id",
+                        height: 500,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "@Url.Action("GetAllSpecializations", "Admin")",
+                                    dataType: "json",
+                                    cache: false
+                                }
                             }
                         }
-                    }
-                });
-    }
+                    });
+            }
+            
     function cabinetEditor(container, options) {
-        $('<input required name="CabinetId" data-bind="value:' + options.field + '"/>')
-                .appendTo(container)
-                .kendoDropDownList({
-                    dataTextField: "cabinetNumber",
-                    dataValueField: "id",
-                    height: 500,
-                    dataSource: {
-                        transport: {
-                            read: {
-                                url: "@Url.Action("GetAllCabinet", "Admin")",
-                                dataType: "json",
-                                cache: false
+                $('<input required name="CabinetId">')
+                    .appendTo(container)
+                    .kendoDropDownList({
+                        dataTextField: "cabinetNumber",
+                        dataValueField: "id",
+                        height: 500,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "@Url.Action("GetAllCabinet", "Admin")",
+                                    dataType: "json",
+                                    cache: false
+                                }
                             }
                         }
-                    }
-                });
-        }
+                    });
+            }
 </script>

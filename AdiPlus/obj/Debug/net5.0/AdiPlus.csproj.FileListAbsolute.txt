@@ -184,4 +184,9 @@ F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\AdiPlus.genruntimecon
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\MaterialGrid.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\SpecializationGrid.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\CabinetGrid.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\CabinetGrid.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\DoctorGrid.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\MaterialGrid.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\SpecializationGrid.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\ServiceGrid.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\ServiceGrid.cshtml.g.cs

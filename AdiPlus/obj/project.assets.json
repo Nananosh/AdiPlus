@@ -5727,24 +5727,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\great\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\nanan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Education\\Poliklinika2\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
+      "projectUniqueName": "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
       "projectName": "AdiPlus",
-      "projectPath": "F:\\Education\\Poliklinika2\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
-      "packagesPath": "C:\\Users\\great\\.nuget\\packages\\",
-      "outputPath": "F:\\Education\\Poliklinika2\\AdiPlus\\AdiPlus\\obj\\",
+      "projectPath": "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
+      "packagesPath": "C:\\Users\\nanan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\great\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\nanan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5752,7 +5747,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.telerik.com/nuget": {}
       },
       "frameworks": {
         "net5.0": {
@@ -5821,7 +5817,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

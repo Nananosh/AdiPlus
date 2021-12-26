@@ -30,7 +30,8 @@
                                 Price: { from: "price", validation: { required: true } },
                                 Specialization: { from: "specialization", validation: { required: true } },
                                 SpecializationId: { from: "specializationId", validation: { required: true } },
-                                Materials: { from: "materials", validation: { required: true } },
+                                Materials: { from: "materials",type:"object", validation: { required: true } },
+                                MaterialsIds: { from: "materialsIds", validation: { required: true } },
                             }
                         }
                     },
@@ -74,9 +75,10 @@
                         }
                     },
                     {
-                        field: "Materials",
+                        field: "Materials.materialName",
                         title: "Материалы",
-                        template: "#= Materials.join(', ') #",
+                        template: citiesDisplay,
+                        editor: materialsEditor
                     },
                     {
                         command: "edit"
@@ -111,13 +113,13 @@
     };
 
     function materialsEditor(container, options) {
-        $('<select multiple="multiple" data-bind="value:' + options.field + '"/>')
+        $('<select name="Materials" data-for="Materials" multiple="multiple" data-bind="value:Materials" data-container-for="Materials"/>')
                 .appendTo(container)
                 .kendoMultiSelect({
                     dataTextField: "materialName",
                     dataValueField: "id",
                     height: 500,
-                    valuePrimitive: true,
+                    valuePrimitive: false,
                     dataSource: {
                         transport: {
                             read: {
@@ -128,5 +130,12 @@
                         }
                     }
                 });
+    }
+    function citiesDisplay(data) {
+        console.log(data)
+        var res = data.Materials.map(function(name) {
+                    return name.materialName;
+                  });
+        return res.join(", ");
     }
 </script>

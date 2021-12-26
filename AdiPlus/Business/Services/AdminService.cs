@@ -165,21 +165,16 @@ namespace AdiPlus.Business.Services
         
         public Service UpdateService(ServiceViewModel model)
         {
-            foreach (var item in model.MaterialsIds)
-            {
-                model.Materials.Add(db.Materials.Find(item));
-            }
-
             var service = db.Services.FirstOrDefault(c => c.Id == model.Id);
-
+            
+            
             if (service != null)
             {
                 service.ServiceName = model.ServiceName;
                 service.Price = model.Price;
-                service.Materials = model.Materials;
+                service.Materials.AddRange(model.Materials);
                 service.SpecializationId = model.SpecializationId;
                 service.Description = model.Description;
-
                 db.SaveChanges();
             }
 
