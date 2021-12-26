@@ -9,16 +9,16 @@
                             dataType: "json",
                             type: "POST"
                         },
-                        @*create: {
-                            url: "@Url.Action("CreateMaterial", "Admin")",
+                        create: {
+                            url: "@Url.Action("CreateService", "Admin")",
                             dataType: "json",
                             type: "POST"
                         },
                         destroy: {
-                            url: "@Url.Action("RemoveMaterial", "Admin")",
+                            url: "@Url.Action("RemoveService", "Admin")",
                             dataType: "json",
                             type: "DELETE"
-                        },*@
+                        },
                     },
                     schema: {
                         model: {
@@ -27,7 +27,7 @@
                                 Id: {from: "id", type: "number", editable: false},
                                 ServiceName: { from: "serviceName", validation: { required: true } },
                                 Description: { from: "description", validation: { required: true } },
-                                Price: { from: "price", validation: { required: true } },
+                                Price: { from: "price",type: "number", validation: { required: true } },
                                 Specialization: { from: "specialization", validation: { required: true } },
                                 SpecializationId: { from: "specializationId", validation: { required: true } },
                                 Materials: { from: "materials",type:"object", validation: { required: true } },
@@ -61,7 +61,7 @@
                     },
                     {
                         field: "Description",
-                        title: "Количество"
+                        title: "Описание"
                     },
                     {
                         field: "Specialization.specializationName",
@@ -77,7 +77,14 @@
                     {
                         field: "Materials.materialName",
                         title: "Материалы",
-                        template: citiesDisplay,
+                        template: function materialsDisplay(data) {
+                                          if (data.Materials!=null){
+                                          var res = data.Materials.map(function(name) {
+                                                      return name.materialName;
+                                                    });
+                                          return res.join(", ");
+                                          }
+                                      },
                         editor: materialsEditor
                     },
                     {
@@ -107,11 +114,7 @@
                     }
                 });
     }
-
-    var multiSelectArrayToString = function (item) {
-        return item.countries.join(', ');
-    };
-
+    
     function materialsEditor(container, options) {
         $('<select name="Materials" data-for="Materials" multiple="multiple" data-bind="value:Materials" data-container-for="Materials"/>')
                 .appendTo(container)
@@ -131,11 +134,5 @@
                     }
                 });
     }
-    function citiesDisplay(data) {
-        console.log(data)
-        var res = data.Materials.map(function(name) {
-                    return name.materialName;
-                  });
-        return res.join(", ");
-    }
+   
 </script>

@@ -21,11 +21,6 @@ namespace AdiPlus.Controllers
             this.mapper = mapper;
         }
 
-        public IActionResult AddMaterial()
-        {
-            return View();
-        }
-
         public JsonResult GetAllSpecializations()
         {
             var specializations = adminService.GetAllSpecializations();
@@ -33,59 +28,11 @@ namespace AdiPlus.Controllers
             return Json(specializations);
         }
 
-        [HttpPost]
-        public IActionResult AddMaterial(MaterialViewModel model)
-        {
-            adminService.AddMaterial(mapper.Map<Material>(model));
-            return RedirectToAction();
-        }
-
-        public IActionResult AddService()
-        {
-            return View();
-        }
-
         public IActionResult MaterialGrid()
         {
             return View();
         }
         
-        [HttpPost]
-        public IActionResult AddService(ServiceViewModel model)
-        {
-            adminService.AddService(mapper.Map<Service>(model));
-            return RedirectToAction();
-        }
-
-        public IActionResult AddSpecialization()
-        {
-            return View();
-        }
-        
-        [HttpPost]
-        public IActionResult AddSpecialization(SpecializationViewModel model)
-        {
-            adminService.AddSpecialization(mapper.Map<Specialization>(model));
-            return RedirectToAction();
-        }
-        
-        public IActionResult AddCabinet()
-        {
-            return View();
-        }
-        
-        [HttpPost]
-        public IActionResult AddCabinet(CabinetViewModel model)
-        {
-            adminService.AddCabinet(mapper.Map<Cabinet>(model));
-            return RedirectToAction();
-        }
-
-        public IActionResult AddDoctor()
-        {
-            return View();
-        }
-
         public IActionResult DoctorGrid()
         {
             return View();
@@ -105,14 +52,7 @@ namespace AdiPlus.Controllers
         {
             return View();
         }
-        
-        [HttpPost]
-        public async Task<IActionResult> AddDoctor(RegisterDoctorViewModel model)
-        {
-            await adminService.AddDoctor(model);
-            return RedirectToAction();
-        }
-        
+
         [HttpPost]
         public IActionResult AddDoctorAdminGrid(DoctorViewModel model)
         {
@@ -132,7 +72,6 @@ namespace AdiPlus.Controllers
         [HttpPost]
         public IActionResult UpdateService(ServiceViewModel model)
         {
-            
             var service = adminService.UpdateService(model);
 
             return Json(mapper.Map<ServiceViewModel>(service));
@@ -160,6 +99,12 @@ namespace AdiPlus.Controllers
         public void RemoveSpecialization(SpecializationViewModel model)
         {
             adminService.RemoveSpecialization(mapper.Map<Specialization>(model));
+        }
+        
+        [HttpDelete]
+        public void RemoveService(ServiceViewModel model)
+        {
+            adminService.RemoveService(mapper.Map<Service>(model));
         }
 
         public JsonResult GetAllMaterials()
@@ -191,6 +136,14 @@ namespace AdiPlus.Controllers
             var specialization = adminService.CreateSpecialization(mapper.Map<Specialization>(model));
 
             return Json(mapper.Map<SpecializationViewModel>(specialization));
+        }
+        
+        [HttpPost]
+        public IActionResult CreateService(ServiceViewModel model)
+        {
+            var service = adminService.CreateService(mapper.Map<Service>(model));
+
+            return Json(mapper.Map<ServiceViewModel>(service));
         }
 
         [HttpPost]

@@ -17,12 +17,14 @@ namespace AdiPlus.Business.Services
         private readonly ApplicationContext db;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+
         public AdminService(ApplicationContext db, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.db = db;
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         public void AddMaterial(Material material)
         {
             db.Materials.Add(material);
@@ -58,7 +60,7 @@ namespace AdiPlus.Business.Services
                 db.SaveChanges();
             }
         }
-        
+
         public void RemoveMaterial(Material model)
         {
             var material = db.Materials.FirstOrDefault(a => a.Id == model.Id);
@@ -69,7 +71,7 @@ namespace AdiPlus.Business.Services
                 db.SaveChanges();
             }
         }
-        
+
         public void RemoveSpecialization(Specialization model)
         {
             var specialization = db.Specializations.FirstOrDefault(a => a.Id == model.Id);
@@ -80,7 +82,18 @@ namespace AdiPlus.Business.Services
                 db.SaveChanges();
             }
         }
-        
+
+        public void RemoveService(Service model)
+        {
+            var service = db.Services.FirstOrDefault(a => a.Id == model.Id);
+
+            if (service != null)
+            {
+                db.Services.Remove(service);
+                db.SaveChanges();
+            }
+        }
+
         public void RemoveCabinet(Cabinet model)
         {
             var cabinet = db.Cabinets.FirstOrDefault(a => a.Id == model.Id);
@@ -107,7 +120,8 @@ namespace AdiPlus.Business.Services
                 db.SaveChanges();
             }
 
-            var updatedCabinet = db.Doctors.Include(x => x.Cabinet).Include(x => x.Specialization).FirstOrDefault(c => c.Id == doctor.Id);
+            var updatedCabinet = db.Doctors.Include(x => x.Cabinet).Include(x => x.Specialization)
+                .FirstOrDefault(c => c.Id == doctor.Id);
 
             return updatedCabinet;
         }
@@ -127,7 +141,7 @@ namespace AdiPlus.Business.Services
 
             return updatedSpecialization;
         }
-        
+
         public Cabinet UpdateCabinet(Cabinet model)
         {
             var cabinet = db.Cabinets.FirstOrDefault(c => c.Id == model.Id);
@@ -162,23 +176,28 @@ namespace AdiPlus.Business.Services
 
             return updatedMaterial;
         }
-        
+
         public Service UpdateService(ServiceViewModel model)
         {
-            var service = db.Services.FirstOrDefault(c => c.Id == model.Id);
-            
-            
+            var service = db.Services.Include(x => x.Materials).FirstOrDefault(c => c.Id == model.Id);
+            List<Material> materials = new List<Material>();
+
+            foreach (var material in model.Materials)
+            {
+                materials.Add(db.Materials.FirstOrDefault(x => x.Id == material.Id));
+            }
+
             if (service != null)
             {
                 service.ServiceName = model.ServiceName;
                 service.Price = model.Price;
-                service.Materials.AddRange(model.Materials);
+                service.Materials = materials;
                 service.SpecializationId = model.SpecializationId;
                 service.Description = model.Description;
                 db.SaveChanges();
             }
 
-            var updatedService = db.Services.FirstOrDefault(c => c.Id == service.Id);
+            var updatedService = db.Services.Include(x => x.Materials).Include(x => x.Specialization).FirstOrDefault(c => c.Id == service.Id);
 
             return updatedService;
         }
@@ -207,6 +226,33 @@ namespace AdiPlus.Business.Services
             var addedSpecializations = db.Specializations.FirstOrDefault(c => c.Id == model.Id);
 
             return addedSpecializations;
+        }
+
+        public Service CreateService(Service model)
+        {
+            List<Material> materials = new List<Material>();
+
+            foreach (var material in model.Materials)
+            {
+                materials.Add(db.Materials.FirstOrDefault(x => x.Id == material.Id));
+            }
+
+            var addService = new Service
+            {
+                ServiceName = model.ServiceName,
+                Price = model.Price,
+                Materials = materials,
+                SpecializationId = model.SpecializationId,
+                Description = model.Description
+            };
+            
+            db.Services.Add(addService);
+            db.SaveChanges();
+
+            var addedService = db.Services.Include(x => x.Materials).Include(x => x.Specialization)
+                .FirstOrDefault(c => c.Id == addService.Id);
+
+            return addedService;
         }
 
         public Material CreateMaterial(Material model)
@@ -287,7 +333,7 @@ namespace AdiPlus.Business.Services
             var cabinets = db.Cabinets;
             return cabinets;
         }
-        
+
         public IEnumerable GetAllService()
         {
             var cabinets = db.Services.Include(d => d.Specialization).Include(x => x.Materials);

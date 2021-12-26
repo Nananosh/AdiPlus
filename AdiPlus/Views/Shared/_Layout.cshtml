@@ -24,16 +24,19 @@
         </div>
         <ul class="list-unstyled components">
             <li>
-                <a class="sliderLinks" asp-action="SpecializationGrid">Специальность</a>
+                <a class="sliderLinks" asp-action="SpecializationGrid" asp-controller="Admin">Специальность</a>
             </li>
             <li>
-                <a class="sliderLinks" asp-action="CabinetGrid">Кабинет</a>
+                <a class="sliderLinks" asp-action="CabinetGrid" asp-controller="Admin">Кабинет</a>
             </li>
             <li>
-                <a class="sliderLinks" asp-action="DoctorGrid">Доктор</a>
+                <a class="sliderLinks" asp-action="DoctorGrid" asp-controller="Admin">Доктор</a>
             </li>
             <li>
-                <a class="sliderLinks" asp-action="MaterialGrid">Материал</a>
+                <a class="sliderLinks" asp-action="MaterialGrid" asp-controller="Admin">Материал</a>
+            </li>
+            <li>
+                <a class="sliderLinks" asp-action="ServiceGrid" asp-controller="Admin">Услуги</a>
             </li>
         </ul>
     </nav>
@@ -49,10 +52,11 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                     </li>
-                    @if(User.Identity.IsAuthenticated){}
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Взять талон</a>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Взять талон</a>
+                        </li>
                     }
                 </ul>
                 <ul class="navbar-nav flex-grow-1 justify-content-end">
