@@ -1,0 +1,138 @@
+﻿<div id="grid"> </div>
+<script>
+    $("#grid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: "@Url.Action("GetAllService", "Admin")",
+                        update: {
+                            url: "@Url.Action("UpdateService", "Admin")",
+                            dataType: "json",
+                            type: "POST"
+                        },
+                        create: {
+                            url: "@Url.Action("CreateService", "Admin")",
+                            dataType: "json",
+                            type: "POST"
+                        },
+                        destroy: {
+                            url: "@Url.Action("RemoveService", "Admin")",
+                            dataType: "json",
+                            type: "DELETE"
+                        },
+                    },
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                Id: {from: "id", type: "number", editable: false},
+                                ServiceName: { from: "serviceName", validation: { required: true } },
+                                Description: { from: "description", validation: { required: true } },
+                                Price: { from: "price",type: "number", validation: { required: true } },
+                                Specialization: { from: "specialization", validation: { required: true } },
+                                SpecializationId: { from: "specializationId", validation: { required: true } },
+                                Materials: { from: "materials",type:"object", validation: { required: true } },
+                                MaterialsIds: { from: "materialsIds", validation: { required: true } },
+                            }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true
+        },
+        toolbar: [
+            { name: "create" }
+        ],
+                height: 550,
+                editable: "popup",
+                pageable: true,
+                columns: [
+                    {
+                        field:"Id",
+                        filterable: false
+                    },
+                    {
+                        field: "ServiceName",
+                        title: "Название"
+                    },
+                    {
+                        field: "Price",
+                        title: "Цена"
+                    },
+                    {
+                        field: "Description",
+                        title: "Описание"
+                    },
+                    {
+                        field: "Specialization.specializationName",
+                        title: "Специальность",
+                        editor: specializationEditor,
+                        template: function (dataItem) {
+                            if (dataItem.Specialization == null)
+                                return '';
+                            else
+                                return dataItem.Specialization.specializationName;
+                        }
+                    },
+                    {
+                        field: "Materials.materialName",
+                        title: "Материалы",
+                        template: function materialsDisplay(data) {
+                                          if (data.Materials!=null){
+                                          var res = data.Materials.map(function(name) {
+                                                      return name.materialName;
+                                                    });
+                                          return res.join(", ");
+                                          }
+                                      },
+                        editor: materialsEditor
+                    },
+                    {
+                        command: "edit"
+                    },
+                    {
+                        command: "destroy"
+                    }
+                ]
+    });
+
+    function specializationEditor(container, options) {
+        $('<input required name="SpecializationId">')
+                .appendTo(container)
+                .kendoDropDownList({
+                    dataTextField: "specializationName",
+                    dataValueField: "id",
+                    height: 500,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: "@Url.Action("GetAllSpecializations", "Admin")",
+                                dataType: "json",
+                                cache: false
+                            }
+                        }
+                    }
+                });
+    }
+    
+    function materialsEditor(container, options) {
+        $('<select name="Materials" data-for="Materials" multiple="multiple" data-bind="value:Materials" data-container-for="Materials"/>')
+                .appendTo(container)
+                .kendoMultiSelect({
+                    dataTextField: "materialName",
+                    dataValueField: "id",
+                    height: 500,
+                    valuePrimitive: false,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: "@Url.Action("GetAllMaterials", "Admin")",
+                                dataType: "json",
+                                cache: false
+                            }
+                        }
+                    }
+                });
+    }
+   
+</script>

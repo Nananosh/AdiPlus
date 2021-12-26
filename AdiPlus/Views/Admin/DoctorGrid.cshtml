@@ -1,0 +1,126 @@
+﻿<div id="grid"> </div>
+<script>
+    $("#grid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: "@Url.Action("GetAllDoctors", "Appointment")",
+                        update: {
+                            url: "@Url.Action("UpdateDoctor", "Admin")",
+                            dataType: "json",
+                            type: "POST"
+                        },
+                        destroy: {
+                            url: "@Url.Action("RemoveDoctor", "Admin")",
+                            dataType: "json",
+                            type: "DELETE"
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                Id: { from: "id", type: "number", validation: { required: true }, editable: false},
+                                Specialization: { from: "specialization", nullable: true, validation: { required: true } },
+                                SpecializationId: { from: "specializationId", nullable: true, validation: { required: true } },
+                                Name: { from: "name", validation: { required: true } },
+                                Surname: { from: "surname", validation: { required: true } },
+                                LastName: { from: "lastName", validation: { required: true } },
+                                Cabinet: { from: "cabinet", nullable: true, validation: { required: true }},
+                                CabinetId: { from: "cabinetId", nullable: true, validation: { required: true }},
+                            }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true
+                },
+                height: 550,
+                editable: "popup",
+                pageable: true,
+                columns: [
+                    {
+                        field:"Id",
+                        filterable: false
+                    },
+                    {
+                        field: "Specialization.specializationName",
+                        title: "Специальность",
+                        editor: specializationEditor,
+                        template: function (dataItem) {
+                            if (dataItem.Specialization == null)
+                                return '';
+                            else
+                                return dataItem.Specialization.specializationName;
+                        }
+                    },
+                    {
+                        field: "Name",
+                        title: "Имя"
+                    },
+                    {
+                        field: "Surname",
+                        title: "Фамилия"
+                    },
+                    {
+                        field: "LastName",
+                        title: "Отчество"
+                    },
+                    {
+                        field: "Cabinet.cabinetNumber",
+                        title: "Кабинет",
+                        editor: cabinetEditor,
+                        template: function (dataItem) {
+                            if (dataItem.Cabinet == null)
+                                return '';
+                            else
+                                return dataItem.Cabinet.cabinetNumber;
+                        }
+                    },
+                    {
+                        command: "edit",
+                    },
+                    {
+                        command: "destroy"
+                    }
+                ]
+    });
+
+    function specializationEditor(container, options) {
+                $('<input required name="SpecializationId">')
+                    .appendTo(container)
+                    .kendoDropDownList({
+                        dataTextField: "specializationName",
+                        dataValueField: "id",
+                        height: 500,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "@Url.Action("GetAllSpecializations", "Admin")",
+                                    dataType: "json",
+                                    cache: false
+                                }
+                            }
+                        }
+                    });
+            }
+            
+    function cabinetEditor(container, options) {
+                $('<input required name="CabinetId">')
+                    .appendTo(container)
+                    .kendoDropDownList({
+                        dataTextField: "cabinetNumber",
+                        dataValueField: "id",
+                        height: 500,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "@Url.Action("GetAllCabinet", "Admin")",
+                                    dataType: "json",
+                                    cache: false
+                                }
+                            }
+                        }
+                    });
+            }
+</script>

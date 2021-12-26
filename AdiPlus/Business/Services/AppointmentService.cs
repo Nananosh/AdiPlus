@@ -19,7 +19,7 @@ namespace AdiPlus.Business.Services
 
         public IEnumerable<Doctor> GetAllDoctors()
         {
-            IEnumerable<Doctor> doctors = db.Doctors;
+            var doctors = db.Doctors.Include(d => d.Specialization).Include(d => d.Cabinet);
 
             return doctors;
         }

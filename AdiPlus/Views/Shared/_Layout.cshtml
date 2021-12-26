@@ -24,22 +24,19 @@
         </div>
         <ul class="list-unstyled components">
             <li>
-                <a class="sliderLinks" href="">Специальность</a>
+                <a class="sliderLinks" asp-action="SpecializationGrid" asp-controller="Admin">Специальность</a>
             </li>
             <li>
-                <a href="#menu">Ilustración</a>
+                <a class="sliderLinks" asp-action="CabinetGrid" asp-controller="Admin">Кабинет</a>
             </li>
             <li>
-                <a href="#">Interacción</a>
+                <a class="sliderLinks" asp-action="DoctorGrid" asp-controller="Admin">Доктор</a>
             </li>
             <li>
-                <a href="#">Blog</a>
+                <a class="sliderLinks" asp-action="MaterialGrid" asp-controller="Admin">Материал</a>
             </li>
             <li>
-                <a href="#">Acerca</a>
-            </li>
-            <li>
-                <a href="#">contacto</a>
+                <a class="sliderLinks" asp-action="ServiceGrid" asp-controller="Admin">Услуги</a>
             </li>
         </ul>
     </nav>
@@ -53,11 +50,14 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Взять талон</a>
+                        </li>
+                    }
                 </ul>
                 <ul class="navbar-nav flex-grow-1 justify-content-end">
                     @if (User.Identity.IsAuthenticated)

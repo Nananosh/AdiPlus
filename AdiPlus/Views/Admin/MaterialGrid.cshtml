@@ -1,0 +1,89 @@
+﻿<div id="grid"> </div>
+<script>
+    $("#grid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: "@Url.Action("GetAllMaterials", "Admin")",
+                        update: {
+                            url: "@Url.Action("UpdateMaterial", "Admin")",
+                            dataType: "json",
+                            type: "POST"
+                        },
+                        create: {
+                            url: "@Url.Action("CreateMaterial", "Admin")",
+                            dataType: "json",
+                            type: "POST"
+                        },
+                        destroy: {
+                            url: "@Url.Action("RemoveMaterial", "Admin")",
+                            dataType: "json",
+                            type: "DELETE"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation === "update" || operation === "create") {
+                                options.deliveryDate = kendo.toString(options.deliveryDate, "dd/MM/yyyy");
+                                options.expirationDate = kendo.toString(options.expirationDate, "dd/MM/yyyy");
+                            }
+                            return options;
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                Id: {from: "id", type: "number", editable: false},
+                                MaterialName: { from: "materialName", validation: { required: true } },
+                                Price: { from: "price", validation: { required: true } },
+                                Quantity: { from: "quantity", validation: { required: true } },
+                                DeliveryDate: { from: "deliveryDate", type: "date", validation: { required: true } },
+                                ExpirationDate: { from: "expirationDate", type: "date", validation: { required: true } },
+                            }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true
+        },
+        toolbar: [
+            { name: "create" }
+        ],
+                height: 550,
+                editable: "popup",
+                pageable: true,
+                columns: [
+                    {
+                        field:"Id",
+                        filterable: false
+                    },
+                    {
+                        field: "MaterialName",
+                        title: "Название"
+                    },
+                    {
+                        field: "Price",
+                        title: "Цена"
+                    },
+                    {
+                        field: "Quantity",
+                        title: "Количество"
+                    },
+                    {
+                        field: "DeliveryDate",
+                        title: "Дата доставки",
+                        format: "{0:dd-MM-yyyy}"
+                    },
+                    {
+                        field: "ExpirationDate",
+                        title: "Срок годности",
+                        format: "{0:dd-MM-yyyy}"
+                    },
+                    {
+                        command: "edit"
+                    },
+                    {
+                        command: "destroy"
+                    }
+                ]
+            });
+</script>

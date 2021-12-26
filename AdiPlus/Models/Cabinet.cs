@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace AdiPlus.Models
 {
@@ -6,6 +7,7 @@ namespace AdiPlus.Models
     {
         public int Id { get; set; }
         public int CabinetNumber { get; set; }
+        [JsonIgnore]
         public List<Doctor> Doctors { get; set; }
     }
 }

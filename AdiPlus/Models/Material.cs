@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace AdiPlus.Models
@@ -11,7 +12,9 @@ namespace AdiPlus.Models
         public int Quantity { get; set; }
         public DateTime DeliveryDate { get; set; }
         public DateTime ExpirationDate { get; set; }
+        [JsonIgnore]
         public List<Service> Services { get; set; }
+        [JsonIgnore]
         public List<AppointmentMaterialUsed> Appointment { get; set; }
     }
 }
