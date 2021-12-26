@@ -12,6 +12,7 @@ namespace AdiPlus.ViewModels.Admin
         public Specialization Specialization { get; set; }
         public int SpecializationId { get; set; }
         public List<Material> Materials { get; set; }
+        public int[] MaterialsIds { get; set; }
         public string GetService { get => ServiceName + " - " + Price.ToString(); }
     }
 }

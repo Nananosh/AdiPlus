@@ -1,0 +1,132 @@
+﻿<div id="grid"> </div>
+<script>
+    $("#grid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: "@Url.Action("GetAllService", "Admin")",
+                        update: {
+                            url: "@Url.Action("UpdateService", "Admin")",
+                            dataType: "json",
+                            type: "POST"
+                        },
+                        @*create: {
+                            url: "@Url.Action("CreateMaterial", "Admin")",
+                            dataType: "json",
+                            type: "POST"
+                        },
+                        destroy: {
+                            url: "@Url.Action("RemoveMaterial", "Admin")",
+                            dataType: "json",
+                            type: "DELETE"
+                        },*@
+                    },
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                Id: {from: "id", type: "number", editable: false},
+                                ServiceName: { from: "serviceName", validation: { required: true } },
+                                Description: { from: "description", validation: { required: true } },
+                                Price: { from: "price", validation: { required: true } },
+                                Specialization: { from: "specialization", validation: { required: true } },
+                                SpecializationId: { from: "specializationId", validation: { required: true } },
+                                Materials: { from: "materials", validation: { required: true } },
+                            }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true
+        },
+        toolbar: [
+            { name: "create" }
+        ],
+                height: 550,
+                editable: "popup",
+                pageable: true,
+                columns: [
+                    {
+                        field:"Id",
+                        filterable: false
+                    },
+                    {
+                        field: "ServiceName",
+                        title: "Название"
+                    },
+                    {
+                        field: "Price",
+                        title: "Цена"
+                    },
+                    {
+                        field: "Description",
+                        title: "Количество"
+                    },
+                    {
+                        field: "Specialization.specializationName",
+                        title: "Специальность",
+                        editor: specializationEditor,
+                        template: function (dataItem) {
+                            if (dataItem.Specialization == null)
+                                return '';
+                            else
+                                return dataItem.Specialization.specializationName;
+                        }
+                    },
+                    {
+                        field: "Materials",
+                        title: "Материалы",
+                        template: "#= Materials.join(', ') #",
+                    },
+                    {
+                        command: "edit"
+                    },
+                    {
+                        command: "destroy"
+                    }
+                ]
+    });
+
+    function specializationEditor(container, options) {
+        $('<input required name="SpecializationId">')
+                .appendTo(container)
+                .kendoDropDownList({
+                    dataTextField: "specializationName",
+                    dataValueField: "id",
+                    height: 500,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: "@Url.Action("GetAllSpecializations", "Admin")",
+                                dataType: "json",
+                                cache: false
+                            }
+                        }
+                    }
+                });
+    }
+
+    var multiSelectArrayToString = function (item) {
+        return item.countries.join(', ');
+    };
+
+    function materialsEditor(container, options) {
+        $('<select multiple="multiple" data-bind="value:' + options.field + '"/>')
+                .appendTo(container)
+                .kendoMultiSelect({
+                    dataTextField: "materialName",
+                    dataValueField: "id",
+                    height: 500,
+                    valuePrimitive: true,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: "@Url.Action("GetAllMaterials", "Admin")",
+                                dataType: "json",
+                                cache: false
+                            }
+                        }
+                    }
+                });
+    }
+</script>

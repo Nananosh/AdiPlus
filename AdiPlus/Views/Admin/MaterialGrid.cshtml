@@ -18,6 +18,13 @@
                             url: "@Url.Action("RemoveMaterial", "Admin")",
                             dataType: "json",
                             type: "DELETE"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation === "update" || operation === "create") {
+                                options.deliveryDate = kendo.toString(options.deliveryDate, "dd/MM/yyyy");
+                                options.expirationDate = kendo.toString(options.expirationDate, "dd/MM/yyyy");
+                            }
+                            return options;
                         }
                     },
                     schema: {
@@ -28,8 +35,8 @@
                                 MaterialName: { from: "materialName", validation: { required: true } },
                                 Price: { from: "price", validation: { required: true } },
                                 Quantity: { from: "quantity", validation: { required: true } },
-                                DeliveryDate: { from: "deliveryDate", validation: { required: true } },
-                                ExpirationDate: { from: "expirationDate", validation: { required: true } },
+                                DeliveryDate: { from: "deliveryDate", type: "date", validation: { required: true } },
+                                ExpirationDate: { from: "expirationDate", type: "date", validation: { required: true } },
                             }
                         }
                     },
@@ -37,7 +44,10 @@
                     serverPaging: true,
                     serverFiltering: true,
                     serverSorting: true
-                },
+        },
+        toolbar: [
+            { name: "create" }
+        ],
                 height: 550,
                 editable: "popup",
                 pageable: true,
@@ -60,11 +70,13 @@
                     },
                     {
                         field: "DeliveryDate",
-                        title: "Дата доставки"
+                        title: "Дата доставки",
+                        format: "{0:dd-MM-yyyy}"
                     },
                     {
                         field: "ExpirationDate",
-                        title: "Срок годности"
+                        title: "Срок годности",
+                        format: "{0:dd-MM-yyyy}"
                     },
                     {
                         command: "edit"

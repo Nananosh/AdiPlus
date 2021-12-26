@@ -162,6 +162,31 @@ namespace AdiPlus.Business.Services
 
             return updatedMaterial;
         }
+        
+        public Service UpdateService(ServiceViewModel model)
+        {
+            foreach (var item in model.MaterialsIds)
+            {
+                model.Materials.Add(db.Materials.Find(item));
+            }
+
+            var service = db.Services.FirstOrDefault(c => c.Id == model.Id);
+
+            if (service != null)
+            {
+                service.ServiceName = model.ServiceName;
+                service.Price = model.Price;
+                service.Materials = model.Materials;
+                service.SpecializationId = model.SpecializationId;
+                service.Description = model.Description;
+
+                db.SaveChanges();
+            }
+
+            var updatedService = db.Services.FirstOrDefault(c => c.Id == service.Id);
+
+            return updatedService;
+        }
 
         public Cabinet CreateCabinet(Cabinet model)
         {
@@ -265,6 +290,12 @@ namespace AdiPlus.Business.Services
         public IEnumerable GetAllCabinet()
         {
             var cabinets = db.Cabinets;
+            return cabinets;
+        }
+        
+        public IEnumerable GetAllService()
+        {
+            var cabinets = db.Services.Include(d => d.Specialization).Include(x => x.Materials);
             return cabinets;
         }
     }

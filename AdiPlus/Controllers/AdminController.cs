@@ -95,6 +95,11 @@ namespace AdiPlus.Controllers
         {
             return View();
         }
+        
+        public IActionResult ServiceGrid()
+        {
+            return View();
+        }
 
         public IActionResult SpecializationGrid()
         {
@@ -123,13 +128,28 @@ namespace AdiPlus.Controllers
 
             return Json(mapper.Map<DoctorViewModel>(cabinet));
         }
+        
+        [HttpPost]
+        public IActionResult UpdateService(ServiceViewModel model)
+        {
+            
+            var service = adminService.UpdateService(model);
+
+            return Json(mapper.Map<ServiceViewModel>(service));
+        }
 
         [HttpDelete]
         public void RemoveDoctor(DoctorViewModel model)
         {
             adminService.RemoveDoctor(mapper.Map<Doctor>(model));
         }
-        
+
+        [HttpDelete]
+        public void RemoveCabinet(CabinetViewModel model)
+        {
+            adminService.RemoveCabinet(mapper.Map<Cabinet>(model));
+        }
+
         [HttpDelete]
         public void RemoveMaterial(MaterialViewModel model)
         {
@@ -207,6 +227,12 @@ namespace AdiPlus.Controllers
         {
             var cabinets = adminService.GetAllCabinet();
             return Json(mapper.Map<IEnumerable<CabinetViewModel>>(cabinets));
+        }
+
+        public IActionResult GetAllService()
+        {
+            var service = adminService.GetAllService();
+            return Json(mapper.Map<IEnumerable<ServiceViewModel>>(service));
         }
     }
 }

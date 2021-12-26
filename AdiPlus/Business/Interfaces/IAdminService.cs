@@ -17,18 +17,20 @@ namespace AdiPlus.Business.Interfaces
         void AddCabinet(Cabinet cabinet);
         void RemoveDoctor(Doctor doctor);
         void RemoveCabinet(Cabinet cabinet);
-        Cabinet CreateCabinet(Cabinet cabinet);
-        Specialization CreateSpecialization(Specialization specialization);
-        Material CreateMaterial(Material material);
         void RemoveSpecialization(Specialization doctor);
         void RemoveMaterial(Material material);
-        Doctor UpdateDoctor(Doctor doctor);
-        Specialization UpdateSpecialization(Specialization doctor);
+        Cabinet CreateCabinet(Cabinet cabinet);
         Cabinet UpdateCabinet(Cabinet cabinet);
-        Material UpdateMaterial(Material material);
-        IEnumerable GetAllMaterials();
+        Specialization CreateSpecialization(Specialization specialization);
+        Specialization UpdateSpecialization(Specialization doctor);
+        Doctor UpdateDoctor(Doctor doctor);
+        Service UpdateService(ServiceViewModel service);
         Doctor AddDoctorAdminGrid(Doctor doctor);
+        Material UpdateMaterial(Material material);
+        Material CreateMaterial(Material material);
+        IEnumerable GetAllMaterials();
         IEnumerable<Specialization> GetAllSpecializations();
+        IEnumerable GetAllService();
         IEnumerable GetAllSpecialization();
         IEnumerable GetAllCabinet();
     }
