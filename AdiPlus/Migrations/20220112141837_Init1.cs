@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AdiPlus.Migrations
 {
-    public partial class CreateDataBase : Migration
+    public partial class Init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -226,11 +226,11 @@ namespace AdiPlus.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    SpecializationId = table.Column<int>(type: "int", nullable: false),
+                    SpecializationId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CabinetId = table.Column<int>(type: "int", nullable: false)
+                    CabinetId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -246,13 +246,13 @@ namespace AdiPlus.Migrations
                         column: x => x.CabinetId,
                         principalTable: "Cabinets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Doctors_Specializations_SpecializationId",
                         column: x => x.SpecializationId,
                         principalTable: "Specializations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,30 +328,27 @@ namespace AdiPlus.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServiceMeterialStandarts",
+                name: "MaterialService",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceId = table.Column<int>(type: "int", nullable: true),
-                    MaterialId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    MaterialsId = table.Column<int>(type: "int", nullable: false),
+                    ServicesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiceMeterialStandarts", x => x.Id);
+                    table.PrimaryKey("PK_MaterialService", x => new { x.MaterialsId, x.ServicesId });
                     table.ForeignKey(
-                        name: "FK_ServiceMeterialStandarts_Materials_MaterialId",
-                        column: x => x.MaterialId,
+                        name: "FK_MaterialService_Materials_MaterialsId",
+                        column: x => x.MaterialsId,
                         principalTable: "Materials",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ServiceMeterialStandarts_Services_ServiceId",
-                        column: x => x.ServiceId,
+                        name: "FK_MaterialService_Services_ServicesId",
+                        column: x => x.ServicesId,
                         principalTable: "Services",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -411,9 +408,9 @@ namespace AdiPlus.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(type: "int", nullable: true),
                     AppointmentId = table.Column<int>(type: "int", nullable: true),
-                    Recommendation = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Recommendation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -517,6 +514,11 @@ namespace AdiPlus.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MaterialService_ServicesId",
+                table: "MaterialService",
+                column: "ServicesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MedicalCards_AppointmentId",
                 table: "MedicalCards",
                 column: "AppointmentId");
@@ -525,16 +527,6 @@ namespace AdiPlus.Migrations
                 name: "IX_MedicalCards_ClientId",
                 table: "MedicalCards",
                 column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceMeterialStandarts_MaterialId",
-                table: "ServiceMeterialStandarts",
-                column: "MaterialId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceMeterialStandarts_ServiceId",
-                table: "ServiceMeterialStandarts",
-                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_SpecializationId",
@@ -571,10 +563,10 @@ namespace AdiPlus.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "MedicalCards");
+                name: "MaterialService");
 
             migrationBuilder.DropTable(
-                name: "ServiceMeterialStandarts");
+                name: "MedicalCards");
 
             migrationBuilder.DropTable(
                 name: "WorkSchedules");
@@ -583,13 +575,13 @@ namespace AdiPlus.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Appointments");
-
-            migrationBuilder.DropTable(
                 name: "Materials");
 
             migrationBuilder.DropTable(
                 name: "Services");
+
+            migrationBuilder.DropTable(
+                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "Clients");

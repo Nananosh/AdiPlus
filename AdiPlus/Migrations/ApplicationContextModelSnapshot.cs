@@ -189,17 +189,12 @@ namespace AdiPlus.Migrations
                     b.Property<int?>("AppointmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Recommendation")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppointmentId");
-
-                    b.HasIndex("ClientId");
 
                     b.ToTable("MedicalCards");
                 });
@@ -566,13 +561,7 @@ namespace AdiPlus.Migrations
                         .WithMany("MedicalCards")
                         .HasForeignKey("AppointmentId");
 
-                    b.HasOne("AdiPlus.Models.Client", "Client")
-                        .WithMany("MedicalCards")
-                        .HasForeignKey("ClientId");
-
                     b.Navigation("Appointment");
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("AdiPlus.Models.Service", b =>
@@ -686,11 +675,6 @@ namespace AdiPlus.Migrations
             modelBuilder.Entity("AdiPlus.Models.Cabinet", b =>
                 {
                     b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("AdiPlus.Models.Client", b =>
-                {
-                    b.Navigation("MedicalCards");
                 });
 
             modelBuilder.Entity("AdiPlus.Models.Doctor", b =>

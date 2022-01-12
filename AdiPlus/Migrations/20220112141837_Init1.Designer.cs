@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdiPlus.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211224214214_EditDoctorAndServiceAndMatrerials")]
-    partial class EditDoctorAndServiceAndMatrerials
+    [Migration("20220112141837_Init1")]
+    partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -568,13 +568,11 @@ namespace AdiPlus.Migrations
                         .WithMany("MedicalCards")
                         .HasForeignKey("AppointmentId");
 
-                    b.HasOne("AdiPlus.Models.Client", "Client")
+                    b.HasOne("AdiPlus.Models.Client", null)
                         .WithMany("MedicalCards")
                         .HasForeignKey("ClientId");
 
                     b.Navigation("Appointment");
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("AdiPlus.Models.Service", b =>

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using AdiPlus.ViewModels.Admin;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using AdiPlus.Models;
 
 namespace AdiPlus.Controllers
 {
@@ -63,7 +65,7 @@ namespace AdiPlus.Controllers
             var clientId = doctorOrClientService.GetClientByUserId(userId);
 
             var messageToUser = appointmentService.AddAppointment(clientId, ticketId, serviceIds);
-            
+
             return Content(messageToUser);
         }
 
@@ -77,9 +79,38 @@ namespace AdiPlus.Controllers
             }
 
             var talons = appointmentService.GetTalonsByDoctorDate(doctor.Value, talon);
-            var t = mapper.Map<IEnumerable<AppointmentViewModel>>(talons);
+            var talonsbydate = mapper.Map<IEnumerable<AppointmentViewModel>>(talons);
 
-            return Json(t);
+            return Json(talonsbydate);
+        }
+
+        public IActionResult AppointmentResult(int? appointmentId)
+        {
+            if (!appointmentId.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var appointmentModel = appointmentService.GetAppoimentById(appointmentId.Value);
+
+            return View(new AppintmentResultViewModel
+            {
+                Appointment = appointmentModel
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddMedicalCard(AppintmentResultViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                appointmentService.AddMedicalCard(mapper.Map<MedicalCard>(model));
+                appointmentService.AddUsedMaterial(model);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
         }
     }
 }

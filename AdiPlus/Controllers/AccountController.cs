@@ -49,7 +49,7 @@ namespace AdiPlus.Controllers
                         User = user,
                         Name = model.Name,
                         Surname = model.Surname,
-                        LastName = model.Lastname,
+                        LastName = model.Lastname
                     });
                     await _database.SaveChangesAsync();
                     await _userManager.AddToRoleAsync(user, "Doctor");

@@ -2,6 +2,9 @@
 using AdiPlus.Constants.UserMessagesConstants;
 using AdiPlus.Migrations;
 using AdiPlus.Models;
+using AdiPlus.ViewModels;
+using AdiPlus.ViewModels.Admin;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,8 +15,12 @@ namespace AdiPlus.Business.Services
     public class AppointmentService : IAppointmentService
     {
         private readonly ApplicationContext db;
-        public AppointmentService(ApplicationContext context)
+        private readonly IMapper mapper;
+        public AppointmentService(
+            ApplicationContext context,
+            IMapper mapper)
         {
+            this.mapper = mapper;
             this.db = context;
         }
 
@@ -64,6 +71,40 @@ namespace AdiPlus.Business.Services
             appointments = appointments.Where(x => x.Client == null);
 
             return appointments;
+        }
+
+        public MedicalCard GetMedicalCardByAppointmentId(int appointmentId)
+        {
+            var medicalCard = db.MedicalCards.Where(x => x.Appointment.Id == appointmentId).FirstOrDefault();
+
+            return medicalCard;
+        }
+
+        public void AddMedicalCard(MedicalCard model)
+        {
+            db.MedicalCards.Add(model);
+
+            db.SaveChanges();
+        }
+
+        public Appointment GetAppoimentById(int id)
+        {
+            var appointment = db.Appointments.Where(x => x.Id == id).Include(a => a.Service).ThenInclude(a => a.Materials).First();
+
+            return appointment;
+        }
+
+        public void AddUsedMaterial(AppintmentResultViewModel model)
+        {
+            List<AppointmentMaterialUsed> useds = new List<AppointmentMaterialUsed>();
+            foreach(var item in model.medicalCardViewModels)
+            {
+                useds.Add(new AppointmentMaterialUsed { AppointmentId = model.AppointmentId, MaterialId = item.Id, Quantity = item.Quantity });
+            }
+
+            db.AppointmentMaterialUseds.AddRange(useds);
+
+            db.SaveChanges();
         }
 
         private IEnumerable<Service> GetServices(int[] serviceIds)

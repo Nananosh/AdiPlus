@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdiPlus.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211220101518_CreateDataBase")]
-    partial class CreateDataBase
+    [Migration("20220112195651_Init2")]
+    partial class Init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,7 +125,7 @@ namespace AdiPlus.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CabinetId")
+                    b.Property<int?>("CabinetId")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -134,7 +134,7 @@ namespace AdiPlus.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SpecializationId")
+                    b.Property<int?>("SpecializationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
@@ -191,17 +191,12 @@ namespace AdiPlus.Migrations
                     b.Property<int?>("AppointmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Recommendation")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppointmentId");
-
-                    b.HasIndex("ClientId");
 
                     b.ToTable("MedicalCards");
                 });
@@ -230,31 +225,6 @@ namespace AdiPlus.Migrations
                     b.HasIndex("SpecializationId");
 
                     b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("AdiPlus.Models.ServiceMeterialStandart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("ServiceMeterialStandarts");
                 });
 
             modelBuilder.Entity("AdiPlus.Models.Specialization", b =>
@@ -353,6 +323,21 @@ namespace AdiPlus.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("AppointmentService");
+                });
+
+            modelBuilder.Entity("MaterialService", b =>
+                {
+                    b.Property<int>("MaterialsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MaterialsId", "ServicesId");
+
+                    b.HasIndex("ServicesId");
+
+                    b.ToTable("MaterialService");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -555,15 +540,11 @@ namespace AdiPlus.Migrations
                 {
                     b.HasOne("AdiPlus.Models.Cabinet", "Cabinet")
                         .WithMany("Doctors")
-                        .HasForeignKey("CabinetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CabinetId");
 
                     b.HasOne("AdiPlus.Models.Specialization", "Specialization")
                         .WithMany("Doctors")
-                        .HasForeignKey("SpecializationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SpecializationId");
 
                     b.HasOne("AdiPlus.Models.User", "User")
                         .WithMany("Doctors")
@@ -582,13 +563,7 @@ namespace AdiPlus.Migrations
                         .WithMany("MedicalCards")
                         .HasForeignKey("AppointmentId");
 
-                    b.HasOne("AdiPlus.Models.Client", "Client")
-                        .WithMany("MedicalCards")
-                        .HasForeignKey("ClientId");
-
                     b.Navigation("Appointment");
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("AdiPlus.Models.Service", b =>
@@ -602,23 +577,6 @@ namespace AdiPlus.Migrations
                     b.Navigation("Specialization");
                 });
 
-            modelBuilder.Entity("AdiPlus.Models.ServiceMeterialStandart", b =>
-                {
-                    b.HasOne("AdiPlus.Models.Material", "Material")
-                        .WithMany("Service")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AdiPlus.Models.Service", "Service")
-                        .WithMany("Material")
-                        .HasForeignKey("ServiceId");
-
-                    b.Navigation("Material");
-
-                    b.Navigation("Service");
-                });
-
             modelBuilder.Entity("AppointmentService", b =>
                 {
                     b.HasOne("AdiPlus.Models.Appointment", null)
@@ -630,6 +588,21 @@ namespace AdiPlus.Migrations
                     b.HasOne("AdiPlus.Models.Service", null)
                         .WithMany()
                         .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MaterialService", b =>
+                {
+                    b.HasOne("AdiPlus.Models.Material", null)
+                        .WithMany()
+                        .HasForeignKey("MaterialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AdiPlus.Models.Service", null)
+                        .WithMany()
+                        .HasForeignKey("ServicesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -706,11 +679,6 @@ namespace AdiPlus.Migrations
                     b.Navigation("Doctors");
                 });
 
-            modelBuilder.Entity("AdiPlus.Models.Client", b =>
-                {
-                    b.Navigation("MedicalCards");
-                });
-
             modelBuilder.Entity("AdiPlus.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
@@ -721,13 +689,6 @@ namespace AdiPlus.Migrations
             modelBuilder.Entity("AdiPlus.Models.Material", b =>
                 {
                     b.Navigation("Appointment");
-
-                    b.Navigation("Service");
-                });
-
-            modelBuilder.Entity("AdiPlus.Models.Service", b =>
-                {
-                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("AdiPlus.Models.Specialization", b =>

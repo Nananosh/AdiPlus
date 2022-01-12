@@ -55,6 +55,24 @@ namespace AdiPlus.ViewModels.Mappings
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CabinetNumber, opt => opt.MapFrom(src => src.CabinetNumber))
                 .ForMember(dest => dest.Doctors, opt => opt.Ignore()).ReverseMap();
+            CreateMap<MedicalCardViewModel, MedicalCard>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Recommendation, opt => opt.MapFrom(src => src.Recommendation))
+                .ForMember(dest => dest.Appointment, opt => opt.MapFrom(src => src.Appointment))
+                .ForMember(dest => dest.AppointmentId, opt => opt.MapFrom(src => src.AppointmentId)).ReverseMap();
+            CreateMap<MedicalCard, AppintmentResultViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Recommendation, opt => opt.MapFrom(src => src.Recommendation))
+                .ForMember(dest => dest.Appointment, opt => opt.MapFrom(src => src.Appointment))
+                .ForMember(dest => dest.medicalCardViewModels, opt => opt.Ignore())
+                .ForMember(dest => dest.AppointmentId, opt => opt.MapFrom(src => src.AppointmentId)).ReverseMap();
+            CreateMap<AppointmentMaterialUsedViewModel, AppointmentMaterialUsed>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.MaterialId, opt => opt.MapFrom(src => src.MaterialId))
+                .ForMember(dest => dest.Material, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointment, opt => opt.Ignore())
+                .ForMember(dest => dest.AppointmentId, opt => opt.MapFrom(src => src.AppointmentId)).ReverseMap();
         }
     }
 }

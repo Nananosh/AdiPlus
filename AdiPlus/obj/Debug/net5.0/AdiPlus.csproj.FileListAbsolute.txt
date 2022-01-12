@@ -157,11 +157,6 @@ F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\AdiPlus.RazorCoreGene
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Account\RegisterDoctor.cshtml.g.cs
-F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddCabinet.cshtml.g.cs
-F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddDoctor.cshtml.g.cs
-F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddMaterial.cshtml.g.cs
-F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddService.cshtml.g.cs
-F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\AddSpecialization.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\DoctorGrid.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\Index.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
@@ -185,3 +180,4 @@ C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\SpecializationGrid.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\ServiceGrid.cshtml.g.cs
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\ServiceGrid.cshtml.g.cs
+F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\AppointmentResult.cshtml.g.cs

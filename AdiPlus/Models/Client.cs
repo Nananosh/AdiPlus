@@ -11,6 +11,5 @@ namespace AdiPlus.Models
         public string Surname { get; set; }
         public string LastName { get; set; }
         public DateTime DateBirth { get; set; }
-        public List<MedicalCard> MedicalCards { get; set; }
     }
 }
