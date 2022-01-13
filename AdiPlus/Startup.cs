@@ -32,11 +32,12 @@ namespace AdiPlus
         {
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IDoctorOrClientService, DoctorOrClientService>();
-            
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<ISeedDatabaseService, SeedDatabaseService>();
+
             services.AddAutoMapper(typeof(UserMappingProfile));
             services.AddControllersWithViews();
-
-            services.AddScoped<IAppointmentService, AppointmentService>();
+            
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );

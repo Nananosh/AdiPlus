@@ -16,6 +16,7 @@ namespace AdiPlus.Business.Services
     {
         private readonly ApplicationContext db;
         private readonly IMapper mapper;
+
         public AppointmentService(
             ApplicationContext context,
             IMapper mapper)
@@ -37,6 +38,7 @@ namespace AdiPlus.Business.Services
 
             return doctors;
         }
+
         public IEnumerable<Service> GetServicesBySpecializationId(int id)
         {
             var services = db.Services.Where(s => s.SpecializationId == id);
@@ -64,8 +66,8 @@ namespace AdiPlus.Business.Services
             var appointments = db.Appointments.Include(d => d.Doctor).Include(p => p.Client).AsQueryable();
             appointments = appointments.Where(
                 x => x.DateStart.Date == talon.Date
-                && x.DateStart.Month == talon.Month
-                && x.DateStart.Year == talon.Year);
+                     && x.DateStart.Month == talon.Month
+                     && x.DateStart.Year == talon.Year);
 
             appointments = appointments.Where(x => x.Doctor.Id == id);
             appointments = appointments.Where(x => x.Client == null);
@@ -87,9 +89,10 @@ namespace AdiPlus.Business.Services
             db.SaveChanges();
         }
 
-        public Appointment GetAppoimentById(int id)
+        public Appointment GetAppointmentById(int id)
         {
-            var appointment = db.Appointments.Where(x => x.Id == id).Include(a => a.Service).ThenInclude(a => a.Materials).First();
+            var appointment = db.Appointments.Where(x => x.Id == id).Include(a => a.Service)
+                .ThenInclude(a => a.Materials).First();
 
             return appointment;
         }
@@ -97,9 +100,10 @@ namespace AdiPlus.Business.Services
         public void AddUsedMaterial(AppintmentResultViewModel model)
         {
             List<AppointmentMaterialUsed> useds = new List<AppointmentMaterialUsed>();
-            foreach(var item in model.medicalCardViewModels)
+            foreach (var item in model.medicalCardViewModels)
             {
-                useds.Add(new AppointmentMaterialUsed { AppointmentId = model.AppointmentId, MaterialId = item.Id, Quantity = item.Quantity });
+                useds.Add(new AppointmentMaterialUsed
+                    {AppointmentId = model.AppointmentId, MaterialId = item.Id, Quantity = item.Quantity});
             }
 
             db.AppointmentMaterialUseds.AddRange(useds);
@@ -124,9 +128,73 @@ namespace AdiPlus.Business.Services
         {
             var appointment = db.Appointments.Include(x => x.Service).FirstOrDefault(a => a.Id == appointmentId);
 
-            appointment.Service.AddRange(services);
-            appointment.ClientId = clientId;
+            if (appointment != null)
+            {
+                appointment.Service.AddRange(services);
+                appointment.ClientId = clientId;
+            }
+
             db.SaveChanges();
+        }
+
+        public IEnumerable<Appointment> GetTalonsByDoctorId(int id)
+        {
+            var appointments = db.Appointments.Include(x => x.Client).Where(x => x.Doctor.Id == id);
+
+            return appointments;
+        }
+
+        public Appointment AddDoctorTalon(Appointment appointment)
+        {
+            var addAppointment = new Appointment
+            {
+                DoctorId = appointment.DoctorId,
+                DateStart = appointment.DateStart,
+                DateEnd = appointment.DateEnd
+            };
+            db.Appointments.Add(addAppointment);
+            db.SaveChanges();
+
+            var addedAppointment =
+                db.Appointments
+                    .Include(x => x.Doctor)
+                    .FirstOrDefault(x => x.Id == addAppointment.Id);
+
+            return addAppointment;
+        }
+
+        public Appointment EditDoctorTalon(Appointment appointment)
+        {
+            var editAppointment = db.Appointments
+                .FirstOrDefault(x => x.Id == appointment.Id);
+
+            if (editAppointment != null)
+            {
+                editAppointment.DateEnd = appointment.DateEnd;
+                editAppointment.DateStart = appointment.DateStart;
+                db.SaveChanges();
+            }
+
+            var editedAppointment = db.Appointments
+                .Include(x => x.Client)
+                .FirstOrDefault(x => x.Id == editAppointment.Id);
+
+            return editedAppointment;
+        }
+
+        public void DeleteDoctorTalon(Appointment appointment)
+        {
+            var deleteAppointment = db.Appointments.FirstOrDefault(x => x.Id == appointment.Id);
+            if (deleteAppointment != null) db.Appointments.Remove(deleteAppointment);
+            db.SaveChanges();
+        }
+
+        public IEnumerable<Appointment> GetTalonsDoctorByDoctorId(int id)
+        {
+            var appointments = db.Appointments.Include(x => x.Client)
+                .Where(x => x.Doctor.Id == id && x.Client.Id != null);
+
+            return appointments;
         }
     }
 }

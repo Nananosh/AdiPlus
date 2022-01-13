@@ -82,10 +82,21 @@
                     },
                     {
                         command: "destroy"
+                    },
+                    {
+                        command: { text: "Добавить талоны", click: editAppointment }
                     }
                 ]
     });
 
+    function editAppointment(e){
+               e.preventDefault();
+               var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+               var redirectUrl = "@Url.Action("AddAppointmentByDoctor","Appointment")" + `/?id=${dataItem.Id}`
+               console.log(redirectUrl)
+               window.location.replace(redirectUrl);
+            }
+    
     function specializationEditor(container, options) {
                 $('<input required name="SpecializationId">')
                     .appendTo(container)

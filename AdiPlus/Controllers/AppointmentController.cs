@@ -38,6 +38,7 @@ namespace AdiPlus.Controllers
 
             return Json(mapper.Map<IEnumerable<DoctorViewModel>>(doctors));
         }
+
         public JsonResult GetAllServices()
         {
             var services = appointmentService.GetAllServices();
@@ -50,9 +51,8 @@ namespace AdiPlus.Controllers
             var doctors = appointmentService.GetDoctorsBySpecializationId(id);
 
             return Json(mapper.Map<IEnumerable<DoctorViewModel>>(doctors));
-
-
         }
+
         public JsonResult GetServicesBySpecializationId(int id)
         {
             var services = appointmentService.GetServicesBySpecializationId(id);
@@ -90,7 +90,7 @@ namespace AdiPlus.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var appointmentModel = appointmentService.GetAppoimentById(appointmentId.Value);
+            var appointmentModel = appointmentService.GetAppointmentById(appointmentId.Value);
 
             return View(new AppintmentResultViewModel
             {
@@ -101,7 +101,7 @@ namespace AdiPlus.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public IActionResult AddMedicalCard(AppintmentResultViewModel model)
+        public IActionResult AppointmentResult(AppintmentResultViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -111,6 +111,55 @@ namespace AdiPlus.Controllers
             }
 
             return View(model);
+        }
+        
+        public IActionResult AddAppointmentByDoctor(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
+        
+        public IActionResult AppointmentByDoctor(string id)
+        {
+            var doctorId = doctorOrClientService.GetDoctorByUserId(id);
+            ViewBag.Id = doctorId;
+            return View();
+        }
+        
+        public IActionResult GetTalonsByDoctorId(int id)
+        {
+            var talons = appointmentService.GetTalonsByDoctorId(id);
+            
+            return Json(mapper.Map<IEnumerable<AppointmentViewModel>>(talons));
+        }
+        
+        [HttpPost]
+        public JsonResult AddDoctorTalon(AppointmentViewModel model)
+        {
+            var talon = appointmentService.AddDoctorTalon(mapper.Map<Appointment>(model));
+
+            return Json(mapper.Map<AppointmentViewModel>(talon));
+        }
+        
+        [HttpPost]
+        public JsonResult EditDoctorTalon(AppointmentViewModel model)
+        {
+            var talon = appointmentService.EditDoctorTalon(mapper.Map<Appointment>(model));
+
+            return Json(mapper.Map<AppointmentViewModel>(talon));
+        }
+        
+        [HttpDelete]
+        public void DeleteDoctorTalon(AppointmentViewModel model)
+        {
+            appointmentService.DeleteDoctorTalon(mapper.Map<Appointment>(model)); ;
+        }
+        
+        public IActionResult GetTalonsDoctorByDoctorId(int id)
+        {
+            var talons = appointmentService.GetTalonsDoctorByDoctorId(id);
+            
+            return Json(mapper.Map<IEnumerable<AppointmentViewModel>>(talons));
         }
     }
 }

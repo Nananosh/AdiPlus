@@ -26,6 +26,7 @@ namespace AdiPlus.ViewModels.Mappings
                 .ForMember(x => x.Doctor, opt => opt.MapFrom(src => src.Doctor))
                 .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(x => x.Material, opt => opt.Ignore())
+                .ForMember(x => x.DoctorId, opt => opt.MapFrom(src => src.DoctorId))
                 .ForMember(x => x.MedicalCards, opt => opt.Ignore())
                 .ForMember(x => x.Service, opt => opt.Ignore())
                 .ForMember(x => x.ClientId, opt => opt.Ignore()).ReverseMap();

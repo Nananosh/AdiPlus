@@ -1,0 +1,83 @@
+﻿<div id="example">
+    <div id="scheduler"></div>
+</div>
+<script id="event-template" type="text/x-kendo-template">
+    <div class="movie-template">
+      <a href="@Url.Action("AppointmentResult","Appointment")/?appointmentId=#= id #"><p>#: title #</p></a>
+      </div>
+    </script>
+<script>
+$(function() {
+    $("#scheduler").kendoScheduler({
+        footer: false,
+        date: new Date("@DateTime.Now.ToString("yyyy-M-d")"),
+        startTime: new Date("@DateTime.Now.ToString("yyyy-M-d 08:00")"),
+        allDaySlot: false,
+        views: [
+            {
+                type: "day",
+                selected: true,
+            },
+            {
+                type: "workWeek"
+            }
+        ],
+        editable: false,
+        eventTemplate: $("#event-template").html(),
+        timezone: "Europe/Minsk",
+        dataSource: {
+            batch: true,
+            transport: {
+                read: {
+                    url: "@Url.Action("GetTalonsDoctorByDoctorId", "Appointment", new {id = ViewBag.Id})",
+                    dataType: "json"
+                },
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            from: "id",
+                            type: "number"
+                        },
+                        title: {
+                            defaultValue: "No title",
+                            validation: {
+                                required: false
+                            }
+                        },
+                        start: {
+                            type: "date",
+                            from: "dateStart"
+                        },
+                        end: {
+                            type: "date",
+                            from: "dateEnd"
+                        },
+                        doctorId: {
+                            type: "number",
+                            from: "doctorId",
+                            defaultValue: @ViewBag.Id
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+<style>
+    .k-icon.k-i-arrow-60-down{
+        display: none;
+        }
+    .k-icon.k-i-arrow-60-up{
+        display: none;
+        }
+    .k-current-time{
+        display: none;
+        }
+    p{
+        color: black;
+        }
+</style>

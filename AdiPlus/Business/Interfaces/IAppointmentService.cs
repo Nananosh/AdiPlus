@@ -18,6 +18,11 @@ namespace AdiPlus.Business.Interfaces
         MedicalCard GetMedicalCardByAppointmentId(int appointmentId);
         void AddMedicalCard(MedicalCard model);
         void AddUsedMaterial(AppintmentResultViewModel model);
-        Appointment GetAppoimentById(int id);
+        Appointment GetAppointmentById(int id);
+        IEnumerable<Appointment> GetTalonsByDoctorId(int id);
+        Appointment AddDoctorTalon(Appointment appointment);
+        Appointment EditDoctorTalon(Appointment appointment);
+        void DeleteDoctorTalon(Appointment appointment);
+        IEnumerable<Appointment> GetTalonsDoctorByDoctorId(int id);
     }
 }

@@ -7,6 +7,7 @@ namespace AdiPlus.Models
     {
         public int Id { get; set; }
         public Doctor Doctor { get; set; }
+        public int DoctorId { get; set; }
         public Client Client { get; set; }
         public int? ClientId { get; set; }
         public List<Service> Service { get; set; }

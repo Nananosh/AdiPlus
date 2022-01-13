@@ -181,3 +181,6 @@ C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\ServiceGrid.cshtml.g.cs
 C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Admin\ServiceGrid.cshtml.g.cs
 F:\Education\Poliklinika2\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\AppointmentResult.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\AppointmentResult.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\AddAppointmentByDoctor.cshtml.g.cs
+C:\Users\nanan\RiderProjects\AdiPlus\AdiPlus\obj\Debug\net5.0\Razor\Views\Appointment\AppointmentByDoctor.cshtml.g.cs

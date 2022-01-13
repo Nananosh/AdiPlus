@@ -1,11 +1,11 @@
 ﻿@model AdiPlus.ViewModels.AppintmentResultViewModel
 
-<form enctype="multipart/form-data" method="post" asp-action="AddMedicalCard" asp-controller="Appointment" asp-anti-forgery="true">
+<form enctype="multipart/form-data" method="post" asp-action="AppointmentResult" asp-controller="Appointment" asp-anti-forgery="true">
     <input type="hidden" asp-for="AppointmentId" value="@Model.Appointment.Id"/>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <br class="breadcrumb">
     <div class="form-group">
-        <label asp-for="Recommendation"></label>
+        <label>Рекомендация</label>
         <input type="text" asp-for="Recommendation" class="form-control" placeholder="Введите рекомендацию">
         <span asp-validation-for="Recommendation" class="text-danger"></span>
     </div>
@@ -14,7 +14,7 @@
     }
     @foreach (var item in Model.Appointment.Service)
     {
-        <label> @item.ServiceName</label>
+        <label class="h3"> @item.ServiceName</label>
         @foreach (var material in item.Materials)
         {
             <div class="form-group">

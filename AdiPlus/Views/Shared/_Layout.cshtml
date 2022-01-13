@@ -54,9 +54,12 @@
                     </li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Взять талон</a>
-                        </li>
+                        @if (User.IsInRole("Patient"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Взять талон</a>
+                            </li>
+                        }
                     }
                 </ul>
                 <ul class="navbar-nav flex-grow-1 justify-content-end">
@@ -71,11 +74,14 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-route-id="@User.Claims.ElementAt(0).Value">@User.Claims.ElementAt(1).Value</a>
                                 <div class="dropdown-divider"></div>
-                                <a id="sidebarCollapse" class="dropdown-item">Админка</a>
-                                @* @if (User.IsInRole("Admin")) *@
-                                @* { *@
-                                @*      *@
-                                @* } *@
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a id="sidebarCollapse" class="dropdown-item">Админка</a>
+                                }
+                                @if (User.IsInRole("Doctor"))
+                                {
+                                    <a class="dropdown-item" asp-controller="Appointment" asp-action="AppointmentByDoctor" asp-route-id="@User.Claims.ElementAt(0).Value">Талоны</a>
+                                }
                                 <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
                             </div>
                         </li>
@@ -99,6 +105,15 @@
         @RenderBody()
     </main>
 </div>
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+let avatar = document.getElementById('avatar');
+$.get('@Url.Action("GetUserImage", "Account", new {id = User.Claims.ElementAt(0).Value})', function(data, status){
+    avatar.src = data;
+});
+    </script>
+}
 <script type="text/javascript">
             $(document).ready(function () {
                 $('#sidebarCollapse').on('click', function () {
