@@ -27,6 +27,7 @@
                                 LastName: { from: "lastName", validation: { required: true } },
                                 Cabinet: { from: "cabinet", nullable: true, validation: { required: true }},
                                 CabinetId: { from: "cabinetId", nullable: true, validation: { required: true }},
+                                WorkSchedule: { from: "workSchedule", nullable: true, validation: { required: true }}
                             }
                         }
                     },
@@ -65,6 +66,10 @@
                     {
                         field: "LastName",
                         title: "Отчество"
+                    },
+                    {
+                        field: "WorkSchedule",
+                        title: "График работы"
                     },
                     {
                         field: "Cabinet.cabinetNumber",

@@ -116,6 +116,7 @@ namespace AdiPlus.Business.Services
                 doctor.Surname = model.Surname;
                 doctor.SpecializationId = model.SpecializationId;
                 doctor.CabinetId = model.CabinetId;
+                doctor.WorkSchedule = model.WorkSchedule;
 
                 db.SaveChanges();
             }

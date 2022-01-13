@@ -14,6 +14,7 @@ namespace AdiPlus.Models
         public string Surname { get; set; }
         public string LastName { get; set; }
         public Cabinet Cabinet { get; set; }
+        public string WorkSchedule { get; set; }
         public int? CabinetId { get; set; }
         [JsonIgnore]
         public List<WorkSchedule> WorkSchedules { get; set; }

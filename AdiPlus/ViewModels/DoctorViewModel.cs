@@ -17,6 +17,7 @@ namespace AdiPlus.ViewModels
         public string LastName { get; set; }
         public Cabinet Cabinet { get; set; }
         public int CabinetId { get; set; }
+        public string WorkSchedule { get; set; }
         public string FullName { get => Name + " " + Surname + " " + LastName; }
     }
 }
