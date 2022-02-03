@@ -4,6 +4,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AdiPlus.ViewModels.Admin;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
@@ -51,6 +53,24 @@ namespace AdiPlus.Controllers
             var doctors = appointmentService.GetDoctorsBySpecializationId(id);
 
             return Json(mapper.Map<IEnumerable<DoctorViewModel>>(doctors));
+        }
+
+        public async Task<IActionResult> MedCard()
+        {
+            var userId = User.Claims.ElementAt(0).Value;
+            if (string.IsNullOrEmpty(userId)) RedirectToAction("Index","Home");
+
+            var clientId = doctorOrClientService.GetClientByUserId(userId);
+            var appointments = await appointmentService.GetMedicalHistoryByClientId(clientId);
+            
+            return View(appointments);
+        }
+
+        public IActionResult AppointmentInfo(int appointmentId)
+        {
+            var appointmentInfo = appointmentService.GetAppointmentById(appointmentId);
+            
+            return View(appointmentInfo);
         }
 
         public JsonResult GetServicesBySpecializationId(int id)

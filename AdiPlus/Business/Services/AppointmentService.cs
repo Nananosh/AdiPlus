@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdiPlus.Business.Services
 {
@@ -32,6 +33,17 @@ namespace AdiPlus.Business.Services
             return doctors;
         }
 
+        public async Task<List<AppointmentViewModel>> GetMedicalHistoryByClientId(int id)
+        {
+            var userAppointment = await db.Appointments
+                .Include(d => d.Doctor)
+                .ThenInclude(d => d.Specialization)
+                .Where(x => x.ClientId == id)
+                .ToListAsync();
+
+            return mapper.Map<List<AppointmentViewModel>>(userAppointment);
+        }
+        
         public IEnumerable<Doctor> GetDoctorsBySpecializationId(int id)
         {
             var doctors = db.Doctors.Where(d => d.SpecializationId == id);
@@ -91,9 +103,17 @@ namespace AdiPlus.Business.Services
 
         public Appointment GetAppointmentById(int id)
         {
-            var appointment = db.Appointments.Where(x => x.Id == id).Include(a => a.Service)
-                .ThenInclude(a => a.Materials).First();
-
+            var appointment = db.Appointments
+                .Where(x => x.Id == id)
+                .Include(a => a.Service)
+                .ThenInclude(a => a.Materials)
+                .Include(d => d.Doctor)
+                .ThenInclude(s => s.Specialization)
+                .Include(mc => mc.MedicalCards)
+                .Include(c => c.Client)
+                .Include(au => au.Material)
+                .FirstOrDefault();
+            
             return appointment;
         }
 

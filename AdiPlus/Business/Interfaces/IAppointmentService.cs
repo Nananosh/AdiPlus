@@ -3,6 +3,7 @@ using AdiPlus.ViewModels;
 using AdiPlus.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AdiPlus.Business.Interfaces
 {
@@ -20,6 +21,7 @@ namespace AdiPlus.Business.Interfaces
         void AddUsedMaterial(AppintmentResultViewModel model);
         Appointment GetAppointmentById(int id);
         IEnumerable<Appointment> GetTalonsByDoctorId(int id);
+        Task<List<AppointmentViewModel>> GetMedicalHistoryByClientId(int id);
         Appointment AddDoctorTalon(Appointment appointment);
         Appointment EditDoctorTalon(Appointment appointment);
         void DeleteDoctorTalon(Appointment appointment);

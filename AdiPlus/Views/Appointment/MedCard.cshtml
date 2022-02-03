@@ -1,0 +1,7 @@
+﻿@model List<AdiPlus.ViewModels.AppointmentViewModel>
+
+@foreach (var item in Model)
+{
+    <p>@item.DateStart - @item.Doctor.Name @item.Doctor.Surname - @item.Doctor.Specialization.SpecializationName</p>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@item.Id" asp-action="AppointmentInfo">Подробнее</a>
+}

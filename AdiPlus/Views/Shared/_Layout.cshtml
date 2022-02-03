@@ -52,14 +52,14 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                     </li>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Patient"))
                     {
-                        @if (User.IsInRole("Patient"))
-                        {
-                            <li class="nav-item">
+                        <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Взять талон</a>
-                            </li>
-                        }
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="MedCard">Мед.Карта</a>
+                        </li>
                     }
                 </ul>
                 <ul class="navbar-nav flex-grow-1 justify-content-end">

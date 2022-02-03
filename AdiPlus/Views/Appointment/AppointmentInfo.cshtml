@@ -1,0 +1,38 @@
+﻿@model AdiPlus.Models.Appointment
+
+<div class="container">
+    <div class="mt-2">
+        <div class="h5">Врач: </div>
+        <p class="ml-4">@Model.Doctor.Name @Model.Doctor.Surname @Model.Doctor.LastName</p>
+    </div>
+    <div class="mt-2">
+        <div class="h5">Специальность: </div>
+        <p class="ml-4">@Model.Doctor.Specialization.SpecializationName</p>
+    </div>
+    <div class="mt-2">
+        <div class="h5">Дата и время приема: </div>
+        <p class="ml-4">@Model.DateStart.ToString("g") - @Model.DateEnd.ToString("t")</p>
+    </div>
+    <div class="mt-2">
+        <div class="h5">Клиент: </div>
+        <p class="ml-4">@Model.Client.Surname @Model.Client.Name @Model.Client.LastName</p>
+    </div>
+    <div class="mt-2">
+        <div class="h5">Рекомендации: </div>
+        @foreach (var item in @Model.MedicalCards)
+        {
+            <p class="ml-4">@item.Recommendation</p>
+        }
+    </div>
+    <div class="mt-2">
+        <div class="h5">Использованные материалы: </div>
+        @foreach (var item in @Model.Material)
+        {
+            <p class="ml-4"><a class="text-dark">Материал</a> - @item.Material.MaterialName</p>
+            <p class="ml-4"><a class="text-dark">Цена</a> - @item.Material.Price <a class="text-dark">руб</a></p>
+            <p class="ml-4"><a class="text-dark">Количество</a> - @item.Quantity</p>
+            <p/>
+        }
+    </div>
+
+</div>
