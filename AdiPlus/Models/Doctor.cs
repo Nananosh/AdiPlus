@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MoreHealth.Models;
 using Newtonsoft.Json;
 
 namespace AdiPlus.Models
@@ -16,8 +15,6 @@ namespace AdiPlus.Models
         public Cabinet Cabinet { get; set; }
         public string WorkSchedule { get; set; }
         public int? CabinetId { get; set; }
-        [JsonIgnore]
-        public List<WorkSchedule> WorkSchedules { get; set; }
         [JsonIgnore]
         public List<Appointment> Appointments { get; set; }
     }

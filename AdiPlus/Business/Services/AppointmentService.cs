@@ -117,6 +117,21 @@ namespace AdiPlus.Business.Services
             return appointment;
         }
 
+        public List<DoctorViewModel> GetAllDoctorsBySpecializationFilter(int? id)
+        {
+            if (id.HasValue)
+            {
+                var doctorsByFilter = db.Doctors.Include(x => x.Specialization).Where(s => s.Specialization.Id == id.Value)
+                    .ToList();
+
+                return mapper.Map<List<DoctorViewModel>>(doctorsByFilter);
+            }
+
+            var doctorsWithOutFilter = db.Doctors.Include(x => x.Specialization).ToList();
+
+            return mapper.Map<List<DoctorViewModel>>(doctorsWithOutFilter);
+        }
+
         public void AddUsedMaterial(AppintmentResultViewModel model)
         {
             List<AppointmentMaterialUsed> useds = new List<AppointmentMaterialUsed>();

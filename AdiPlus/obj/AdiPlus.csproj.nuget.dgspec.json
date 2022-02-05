@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj": {}
+    "C:\\Users\\great\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj": {
+    "C:\\Users\\great\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
+        "projectUniqueName": "C:\\Users\\great\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
         "projectName": "AdiPlus",
-        "projectPath": "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
-        "packagesPath": "C:\\Users\\nanan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nanan\\RiderProjects\\AdiPlus\\AdiPlus\\obj\\",
+        "projectPath": "C:\\Users\\great\\RiderProjects\\AdiPlus\\AdiPlus\\AdiPlus.csproj",
+        "packagesPath": "C:\\Users\\great\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\great\\RiderProjects\\AdiPlus\\AdiPlus\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\nanan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\great\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,8 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.telerik.com/nuget": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -92,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

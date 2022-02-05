@@ -18,8 +18,7 @@ namespace AdiPlus.ViewModels.Mappings
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(dvm => dvm.LastName))
                 .ForMember(dest => dest.Cabinet, opt => opt.MapFrom(dvm => dvm.Cabinet))
                 .ForMember(dest => dest.CabinetId, opt => opt.MapFrom(dvm => dvm.CabinetId))
-                .ForMember(dest => dest.WorkSchedule, opt => opt.MapFrom(dvm => dvm.WorkSchedule))
-                .ForMember(dest => dest.WorkSchedules, opt => opt.Ignore()).ReverseMap();
+                .ForMember(dest => dest.WorkSchedule, opt => opt.MapFrom(dvm => dvm.WorkSchedule)).ReverseMap();
             CreateMap<AppointmentViewModel, Appointment>()
                 .ForMember(x => x.Client, opt => opt.MapFrom(src => src.Client))
                 .ForMember(x => x.DateStart, opt => opt.MapFrom(src => src.DateStart))

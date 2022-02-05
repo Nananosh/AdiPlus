@@ -472,32 +472,6 @@ namespace AdiPlus.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MoreHealth.Models.WorkSchedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RecurrenceRule")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.ToTable("WorkSchedules");
-                });
-
             modelBuilder.Entity("AdiPlus.Models.Appointment", b =>
                 {
                     b.HasOne("AdiPlus.Models.Client", "Client")
@@ -661,15 +635,6 @@ namespace AdiPlus.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MoreHealth.Models.WorkSchedule", b =>
-                {
-                    b.HasOne("AdiPlus.Models.Doctor", "Doctor")
-                        .WithMany("WorkSchedules")
-                        .HasForeignKey("DoctorId");
-
-                    b.Navigation("Doctor");
-                });
-
             modelBuilder.Entity("AdiPlus.Models.Appointment", b =>
                 {
                     b.Navigation("Material");
@@ -685,8 +650,6 @@ namespace AdiPlus.Migrations
             modelBuilder.Entity("AdiPlus.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("WorkSchedules");
                 });
 
             modelBuilder.Entity("AdiPlus.Models.Material", b =>

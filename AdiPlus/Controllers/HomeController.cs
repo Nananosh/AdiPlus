@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AdiPlus.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AdiPlus.Models;
@@ -11,18 +12,23 @@ namespace AdiPlus.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IAppointmentService appointmentService;
+        public HomeController(IAppointmentService appointmentService)
         {
-            _logger = logger;
+            this.appointmentService = appointmentService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
             return View();
         }
 
+        public JsonResult TEST(int? id)
+        {
+            var allDoctors = appointmentService.GetAllDoctorsBySpecializationFilter(id);
+            
+            return Json(allDoctors);
+        }
         public IActionResult Privacy()
         {
             return View();

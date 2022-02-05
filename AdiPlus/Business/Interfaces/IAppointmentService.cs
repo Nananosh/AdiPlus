@@ -26,5 +26,6 @@ namespace AdiPlus.Business.Interfaces
         Appointment EditDoctorTalon(Appointment appointment);
         void DeleteDoctorTalon(Appointment appointment);
         IEnumerable<Appointment> GetTalonsDoctorByDoctorId(int id);
+        List<DoctorViewModel> GetAllDoctorsBySpecializationFilter(int? id);
     }
 }

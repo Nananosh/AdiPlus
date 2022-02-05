@@ -1,7 +1,6 @@
 ﻿using AdiPlus.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MoreHealth.Models;
 
 namespace AdiPlus.Migrations
 {
@@ -21,6 +20,5 @@ namespace AdiPlus.Migrations
         public DbSet<Client> Clients { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
-        public DbSet<WorkSchedule> WorkSchedules { get; set; }
     }
 }

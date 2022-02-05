@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using MoreHealth.Models;
 
 namespace AdiPlus.Models
 {
