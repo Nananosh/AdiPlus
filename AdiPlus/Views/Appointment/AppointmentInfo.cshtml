@@ -34,5 +34,8 @@
             <p/>
         }
     </div>
-
+    @if (Model.DateStart > DateTime.Now)
+    {
+        <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@Model.Id" asp-action="CancelAppointment">Отменить</a>
+    }
 </div>

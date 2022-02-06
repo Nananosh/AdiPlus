@@ -72,6 +72,13 @@ namespace AdiPlus.Controllers
             
             return View(appointmentInfo);
         }
+        
+        public IActionResult CancelAppointment(int appointmentId)
+        {
+            appointmentService.CancelAppointment(appointmentId);
+            
+            return RedirectToAction("MedCard", "Appointment");
+        }
 
         public JsonResult GetServicesBySpecializationId(int id)
         {

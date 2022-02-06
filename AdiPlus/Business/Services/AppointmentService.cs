@@ -117,6 +117,17 @@ namespace AdiPlus.Business.Services
             return appointment;
         }
 
+        public void CancelAppointment(int id)
+        {
+            var cancelAppointment = db.Appointments.FirstOrDefault(x => x.Id == id);
+            
+            if (cancelAppointment != null)
+            {
+                cancelAppointment.ClientId = null;
+                db.SaveChanges();
+            }
+        }
+
         public List<DoctorViewModel> GetAllDoctorsBySpecializationFilter(int? id)
         {
             if (id.HasValue)
