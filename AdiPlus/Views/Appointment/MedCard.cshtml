@@ -1,12 +1,18 @@
 ﻿@model List<AdiPlus.ViewModels.AppointmentViewModel>
 
+<p>Активные талоны</p>
 @foreach (var item in Model)
 {
     if (item.DateStart > DateTime.Now)
     {
-        <p>@item.DateStart - @item.Doctor.Name @item.Doctor.Surname - @item.Doctor.Specialization.SpecializationName</p>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@item.Id" asp-action="AppointmentInfo">Подробнее</a>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@item.Id" asp-action="CancelAppointment">Отменить</a>
+        <h4>Время: <a class="text-primary">@item.DateStart</a> <br/> 
+            Специальность: <a class="text-primary">@item.Doctor.Specialization.SpecializationName</a> <br/>
+            Доктор: <a class="text-primary">@item.Doctor.Name @item.Doctor.Surname @item.Doctor.LastName </a>  <br/>
+        </h4>
+        <a class="btn btn-outline-info" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@item.Id" asp-action="AppointmentInfo">Подробнее</a>
+        <a class="btn btn-outline-danger" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@item.Id" asp-action="CancelAppointment">Отменить</a>
+        <br/>
+        <br/>
     }
 }
 
@@ -15,7 +21,12 @@
 {
     if (item.DateStart < DateTime.Now)
     {
-        <p>@item.DateStart - @item.Doctor.Name @item.Doctor.Surname - @item.Doctor.Specialization.SpecializationName</p>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@item.Id" asp-action="AppointmentInfo">Подробнее</a>
+        <h4>Время: <a class="text-primary">@item.DateStart</a> <br/> 
+                    Специальность: <a class="text-primary">@item.Doctor.Specialization.SpecializationName</a> <br/>
+                    Доктор: <a class="text-primary">@item.Doctor.Name @item.Doctor.Surname @item.Doctor.LastName</a>  <br/>
+                </h4>
+                <a class="btn btn-outline-info" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@item.Id" asp-action="AppointmentInfo">Подробнее</a>
+                <br/>
+                <br/>
     }
 }

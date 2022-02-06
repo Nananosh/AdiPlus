@@ -1,0 +1,50 @@
+﻿@model List<AdiPlus.ViewModels.DoctorViewModel>
+
+<div class="content">
+<div class="row mt-5">
+    <div class="col-lg-12 d-flex justify-content-center"><input id="specializations" class="mb-3" style="width: 40%;"/></div>
+    <div id="docCont"></div>  
+</div>
+</div>
+
+<script>
+$(document).ready(function () {
+    updateUp();
+});
+
+$("#specializations").kendoDropDownList({
+        dataTextField: "specializationName",
+        dataValueField: "id",
+        optionLabel: "Выберите специальность",
+        height: 500,
+        change: updateUp,
+        dataSource: {
+            transport: {
+                read: {
+                    url: "@Url.Action("GetAllSpecializations", "Admin")",
+                    dataType: "json",
+                    cache: false,
+                }
+            }
+        }
+    });
+
+    function updateUp(e){
+                            var specializationId = $("#specializations").data("kendoDropDownList").value();
+                            let buildUrl = "@Url.Action("GetDoctorByFilterSpecializationId", "Home")" + `/?id=${specializationId}`
+                            $.ajax({
+                            	url: buildUrl,
+                            	dataType: "json",
+                                async: true,
+                            	method: 'GET',
+                            	success: function(msg){
+                            	    $("#Doct").remove();
+                            	    $("#docCont").append(`<div id="Doct" class="row"></div>`);
+                            	    for (let i = 0; i < msg.length; i++) {
+                            	        console.log(msg[i]);
+                            		    $("#Doct").append(`<div class="col-6 col-md-4 bg-secondary shadow p-3 mb-5 bg-white rounded m-2"><h3 class="display-5">${msg[i].fullName}</h3> <p>Время работы:<em class="text-secondary">(${msg[i].workSchedule})</em></p></div>`);
+                            		}
+                            	}
+                            });
+                        }
+</script>

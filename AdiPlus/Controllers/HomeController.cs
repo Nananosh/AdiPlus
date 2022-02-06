@@ -18,7 +18,11 @@ namespace AdiPlus.Controllers
             this.appointmentService = appointmentService;
         }
 
-        public IActionResult Index(int? id)
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult AllDoctors(int? id)
         {
             return View();
         }

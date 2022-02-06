@@ -17,25 +17,31 @@
         <div class="h5">Клиент: </div>
         <p class="ml-4">@Model.Client.Surname @Model.Client.Name @Model.Client.LastName</p>
     </div>
-    <div class="mt-2">
-        <div class="h5">Рекомендации: </div>
-        @foreach (var item in @Model.MedicalCards)
-        {
-            <p class="ml-4">@item.Recommendation</p>
-        }
-    </div>
-    <div class="mt-2">
-        <div class="h5">Использованные материалы: </div>
-        @foreach (var item in @Model.Material)
-        {
-            <p class="ml-4"><a class="text-dark">Материал</a> - @item.Material.MaterialName</p>
-            <p class="ml-4"><a class="text-dark">Цена</a> - @item.Material.Price <a class="text-dark">руб</a></p>
-            <p class="ml-4"><a class="text-dark">Количество</a> - @item.Quantity</p>
-            <p/>
-        }
-    </div>
+    @if (string.IsNullOrEmpty(@Model.MedicalCards.ToString()))
+    {
+        <div class="mt-2">
+            <div class="h5">Рекомендации: </div>
+            @foreach (var item in @Model.MedicalCards)
+            {
+                <p class="ml-4">@item.Recommendation</p>
+            }
+        </div>
+    }
+    @if (string.IsNullOrEmpty(@Model.Material.ToString()))
+    {
+        <div class="mt-2">
+            <div class="h5">Использованные материалы: </div>
+            @foreach (var item in @Model.Material)
+            {
+                <p class="ml-4"><a class="text-dark">Материал</a> - @item.Material.MaterialName</p>
+                <p class="ml-4"><a class="text-dark">Цена</a> - @item.Material.Price <a class="text-dark">руб</a></p>
+                <p class="ml-4"><a class="text-dark">Количество</a> - @item.Quantity</p>
+                <p/>
+            }
+        </div>
+    }
     @if (Model.DateStart > DateTime.Now)
     {
-        <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@Model.Id" asp-action="CancelAppointment">Отменить</a>
+        <a class="btn btn-outline-danger" asp-area="" asp-controller="Appointment" asp-route-appointmentId="@Model.Id" asp-action="CancelAppointment">Отменить</a>
     }
 </div>

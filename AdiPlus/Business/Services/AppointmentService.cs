@@ -28,7 +28,9 @@ namespace AdiPlus.Business.Services
 
         public IEnumerable<Doctor> GetAllDoctors()
         {
-            var doctors = db.Doctors.Include(d => d.Specialization).Include(d => d.Cabinet);
+            var doctors = db.Doctors
+                .Include(d => d.Specialization)
+                .Include(d => d.Cabinet);
 
             return doctors;
         }
@@ -75,7 +77,8 @@ namespace AdiPlus.Business.Services
 
         public IEnumerable<Appointment> GetTalonsByDoctorDate(int id, DateTime talon)
         {
-            var appointments = db.Appointments.Include(d => d.Doctor).Include(p => p.Client).AsQueryable();
+            var appointments = db.Appointments.Include(d => d.Doctor)
+                .Include(p => p.Client).AsQueryable();
             appointments = appointments.Where(
                 x => x.DateStart.Date == talon.Date
                      && x.DateStart.Month == talon.Month
