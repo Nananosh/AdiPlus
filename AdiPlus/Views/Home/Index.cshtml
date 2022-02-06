@@ -31,7 +31,7 @@ $("#specializations").kendoDropDownList({
 
     function updateUp(e){
                             var specializationId = $("#specializations").data("kendoDropDownList").value();
-                            let buildUrl = "@Url.Action("TEST", "Home")" + `/?id=${specializationId}`
+                            let buildUrl = "@Url.Action("GetDoctorByFilterSpecializationId", "Home")" + `/?id=${specializationId}`
                             $.ajax({
                             	url: buildUrl,
                             	dataType: "json",
