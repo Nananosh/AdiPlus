@@ -27,6 +27,13 @@ namespace AdiPlus.Controllers
             return View();
         }
 
+        public IActionResult AllServiceAndMaterials()
+        {
+            var services = appointmentService.GetAllServices();
+            
+            return View(services);
+        }
+
         public JsonResult GetDoctorByFilterSpecializationId(int? id)
         {
             var allDoctors = appointmentService.GetAllDoctorsBySpecializationFilter(id);

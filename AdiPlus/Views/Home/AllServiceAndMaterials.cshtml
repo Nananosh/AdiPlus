@@ -1,0 +1,22 @@
+﻿@model List<AdiPlus.ViewModels.Admin.ServiceViewModel>
+
+@foreach (var item in @Model)
+{
+    int fullPrice = 0;
+    <div class="h5">Услуга: <a class="text-info">@item.ServiceName</a></div>
+    <div class="h5">Специальность: <a class="text-info">@item.Specialization.SpecializationName</a> </div>
+    <div class="h5">Цена: <a class="text-info">@item.Price</a> BYN </div>
+    <div class="h5">Материалы: </div>
+    @foreach (var material in @item.Materials)
+    {
+        <p class="ml-4"><a class="text-dark">Материал</a> - <a class="text-info">@material.MaterialName</a></p>
+        <p class="ml-4"><a class="text-dark">Количество</a> - <a class="text-info">@material.Quantity</a></p>
+        <p class="ml-4"><a class="text-dark">Цена</a> - <a class="text-info">@material.Price</a> <a class="text-dark">BYN</a></p>
+        
+        fullPrice += @material.Price * material.Quantity;
+    }       
+    fullPrice += @item.Price;
+    <div class="h5">Общая цена: <a class="text-info">@fullPrice</a> BYN </div>
+    <br/>
+    <br/>
+    }

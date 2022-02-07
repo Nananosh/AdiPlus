@@ -12,7 +12,7 @@ namespace AdiPlus.Business.Interfaces
         IEnumerable<Doctor> GetAllDoctors();
 
         IEnumerable<Service> GetServicesBySpecializationId(int id);
-        IEnumerable<Service> GetAllServices();
+        List<ServiceViewModel> GetAllServices();
         IEnumerable<Doctor> GetDoctorsBySpecializationId(int id);
         IEnumerable<Appointment> GetTalonsByDoctorDate(int id, DateTime talon);
         string AddAppointment(int clientId, int ticketId, int[] serviceIds);

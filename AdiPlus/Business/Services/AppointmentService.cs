@@ -60,11 +60,13 @@ namespace AdiPlus.Business.Services
             return services;
         }
 
-        public IEnumerable<Service> GetAllServices()
+        public List<ServiceViewModel> GetAllServices()
         {
-            IEnumerable<Service> services = db.Services;
+            var services = db.Services
+                .Include(x => x.Specialization)
+                .Include(x => x.Materials).ToList();
 
-            return services;
+            return mapper.Map<List<ServiceViewModel>>(services);
         }
 
         public string AddAppointment(int clientId, int ticketId, int[] serviceIds)
